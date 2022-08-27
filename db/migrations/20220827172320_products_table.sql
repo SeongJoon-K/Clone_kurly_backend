@@ -1,0 +1,14 @@
+-- migrate:up
+CREATE TABLE products (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    thumbnail VARCHAR(100) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    price INT NOT NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- migrate:down
+DROP TABLE products;
