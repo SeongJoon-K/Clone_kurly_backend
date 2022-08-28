@@ -13,3 +13,5 @@ app.get('/api/users/:type', async (req, res) => {
     console.log(type);
     res.send('ok');
 })
+
+// sample.
