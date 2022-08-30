@@ -1,7 +1,7 @@
 // app.js
 
 
-
+// app.js 기본 모듈 설정
 const http = require("http");
 const express = require('express');
 const cors = require('cors');
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(routes);
 
 
-// myDataSource
+// myDataSource TYPEORM 설정 및 database 설정
 const { DataSource } = require('typeorm');
 
 const myDataSource = new DataSource({
@@ -32,6 +32,7 @@ const myDataSource = new DataSource({
     database: process.env.TYPEORM_DATABASE
 })
 
+// data 추가시 해당 문구 출력
 myDataSource.initialize()
   .then(() => {
     console.log("Data Source has been initialized!");
@@ -41,12 +42,14 @@ myDataSource.initialize()
 	  myDataSource.destroy();
   });
 
-//
+// Health Check Code
 
 app.get("/ping", (req, res) => {
   res.json({ message: "pong" });
 });
 
+
+// 상품(products) 생성 POST API
 app.post('/products', async (req, res) => {
 	const { category_id ,title, thumbnail, description, price } = req.body
     
@@ -63,6 +66,23 @@ app.post('/products', async (req, res) => {
 	); 
      res.status(201).json({ message : "successfully created" });
 	})
+
+// 상품(products) 조회 GET API
+app.get('/products', async(req, res) => {
+    await myDataSource.query(
+	`SELECT 
+            products.category_id,
+            products.title,
+            products.thumbnail,
+            products.description,
+            products.price
+		FROM products`
+		,(err, rows) => {
+      res.status(200).json(rows);
+	});
+});
+
+//
 
   
 
