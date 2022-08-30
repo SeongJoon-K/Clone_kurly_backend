@@ -58,8 +58,8 @@ app.post('/products', async (req, res) => {
 		    category_id,
 		    title,
 		    thumbnail,
-        	description,
-        	price
+        description,
+        price
 		) VALUES (?, ?, ?, ?, ?);
 		`,
 		[ category_id ,title, thumbnail, description, price ]
@@ -82,8 +82,24 @@ app.get('/products', async(req, res) => {
 	});
 });
 
-//
+// 상품(products) 수정 PUT API
 
+app.put('/products', async(req, res) => {
+	const { category_id ,title, thumbnail, description, price } = req.body
+    
+	await myDataSource.query(
+		`UPDATE products 
+      SET 
+        category_id = ?,
+		    title = ?,
+		    thumbnail = ?,
+        description = ?,
+        price = ?
+		`,
+		[ category_id ,title, thumbnail, description, price ]
+	); 
+      res.status(201).json({ message : "successfully updated" });
+	});
   
 
 const server = http.createServer(app);
