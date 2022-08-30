@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
-const server = app.listen(3001, () => {
-    console.log('START sever : localhost:3001')
-});
+// const server = app.listen(3001, () => {
+//     console.log('START sever : localhost:3001')
+// });
 
 
 
