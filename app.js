@@ -102,6 +102,18 @@ app.put('/products', async(req, res) => {
 	});
   
 
+// 상품(products) 삭제 DELETE API
+app.delete('/products/:productId', async(req, res) => {
+	const { productId } = req.params;
+
+    await myDataSource.query(
+		`DELETE FROM products
+		WHERE products.id = ${productId}
+		`); 
+     res.status(204).json({ message : "successfully deleted" });
+	});
+
+
 const server = http.createServer(app);
 const PORT = process.env.PORT;
 
