@@ -183,10 +183,7 @@ app.delete('/vocs/:vocsId', async(req, res) => {
      res.status(204).json({ message : "successfully deleted" });
     });
 
-
-
-
-  //
+//
 
 
 const server = http.createServer(app);
