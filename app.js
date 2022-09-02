@@ -18,13 +18,6 @@ app.use(routes); // 해당 코드가 routes에 있는 index.j가 불러와진다
 // route만 작성한다.
 
 
-// Health Check Code
-
-app.get("/ping", (req, res) => {
-  res.json({ message: "pong" });
-});
-
-
 const PORT = process.env.PORT; // .env에서 긁어온 포트 번호를 사용하겠다
 const server = http.createServer(app);
 
