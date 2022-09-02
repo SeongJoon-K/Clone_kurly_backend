@@ -108,7 +108,23 @@ CREATE TABLE `products` (
   `thumbnail` varchar(100) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `price` int NOT NULL,
-  `discount` double NULL,
+  `discount` double DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `promotions`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `promotions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `img_src` varchar(2000) NOT NULL,
+  `link` varchar(2000) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -192,5 +208,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220827172527'),
   ('20220827172546'),
   ('20220827172556'),
-  ('20220827172629');
+  ('20220827172629'),
+  ('20220902024248');
 UNLOCK TABLES;
