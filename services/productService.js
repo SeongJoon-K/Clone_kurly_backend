@@ -20,9 +20,8 @@ const products = async (category_id ,title, thumbnail, description, price, disco
     
 };
 const getproduct = async(id) => {
-    const product = await productDao.getproduct(
-        id
-    );
+    console.log('ser' + id);
+    const product = await productDao.getproduct(id);
     return product;
 
 }   
