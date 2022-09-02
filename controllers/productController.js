@@ -19,6 +19,26 @@ const products = async (req, res) => {
     }
 };
 
+
+const getproduct = async(req, res) => {
+    try {
+        // id가 없을 때, id param왔는데 레포에 없을 떄
+        const id = req.params; 
+        if (!id) {
+            return res.status(400).json({ message : "ID_ERROR"});
+        }
+        const product = await productService.getproduct( id );
+        res.status(201).json({ 
+            product
+         });
+    } catch (err) {
+        console.log(err);
+        return res.status(err.statusCode || 500).json({ message : err.message });
+    }
+}
+
+
 module.exports = {
-    products
+    products,
+    getproduct
 }
