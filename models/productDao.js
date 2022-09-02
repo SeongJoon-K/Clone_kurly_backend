@@ -42,14 +42,15 @@ const createProduct = async ( category_id ,title, thumbnail, description, price,
         throw error;
     }
 }
+
 const getproduct = async (id) => {
     const product = await myDataSource.query(
         `SELECT * FROM products
-        WHERE id=?;`,[id])
+        WHERE id=?;`,(id))
+
+        console.log(product);
     return product
 }
-
-
 
 module.exports = {
     createProduct,
