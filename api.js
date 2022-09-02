@@ -9,7 +9,8 @@ app.post('/products', async (req, res) => {
 		    title,
 		    thumbnail,
         description,
-        price
+        price,
+        discount
 		) VALUES (?, ?, ?, ?, ?);
 		`,
 		[ category_id ,title, thumbnail, description, price ]

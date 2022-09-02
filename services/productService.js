@@ -17,19 +17,17 @@ const products = async (category_id ,title, thumbnail, description, price, disco
     );
     return createProduct;
     
-    const readProduct = await productDao.readProduct(
-        id,
-        category_id,
-        title,
-        thumbnail,
-        description,
-        price,
-        discount,
-        createAt,
-        updateAt
-    )
+    
 };
+const getproduct = async(id) => {
+    const product = await productDao.getproduct(
+        id
+    );
+    return product;
+
+}   
 
 module.exports = {
-    products
+    products,
+    getproduct
 }
