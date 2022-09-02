@@ -108,6 +108,7 @@ CREATE TABLE `products` (
   `thumbnail` varchar(100) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `price` int NOT NULL,
+  `discount` double NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
