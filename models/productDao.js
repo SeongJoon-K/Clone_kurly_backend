@@ -22,7 +22,7 @@ myDataSource.initialize()
   });
 
 
-const createProduct = async ( category_id ,title, thumbnail, description, price ) => {
+const createProduct = async ( category_id ,title, thumbnail, description, price, discount ) => {
     try {
         return await myDataSource.query(
             `INSERT INTO products(
@@ -30,10 +30,11 @@ const createProduct = async ( category_id ,title, thumbnail, description, price 
                 title,
                 thumbnail,
                 description,
-                price
-            ) VALUES (?, ?, ?, ?, ?);
+                price,
+                discount
+            ) VALUES (?, ?, ?, ?, ?, ?);
             `,
-            [ category_id ,title, thumbnail, description, price ]
+            [ category_id ,title, thumbnail, description, price, discount ]
         );
     } catch (err) {
         const error = new Error('허용되지 않는 데이터 입력');
