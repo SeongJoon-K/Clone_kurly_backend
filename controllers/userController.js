@@ -18,25 +18,7 @@ const signUp = async (req, res) => {
   }
 };
 
-const products = async (req, res) => {
-  try {
-    const { category_id ,title, thumbnail, description, price } = req.body;
-
-    if ( !category_id || !title || !thumbnail || !description || !price ) {
-      return res.status(400).json({ message: 'KEY_ERROR'});
-    }
-
-    await userService.products( category_id ,title, thumbnail, description, price );
-    return res.status(201).json({
-      message: 'product create success',
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(err.statusCode || 500).json({ message: err.message });
-  }
-}
 
 module.exports = {
 	signUp,
-  products
 }

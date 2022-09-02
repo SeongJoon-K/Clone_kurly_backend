@@ -14,7 +14,7 @@ const myDataSource = new DataSource({
 // initialize를 통한 초기화 이후 서버가 정상적으로 DB 연동 될 시 console 내용 출력됨
 myDataSource.initialize()
   .then(() => {
-    console.log("Data Source has been initialized!");
+    console.log("상품정보(product) DB 연동 완료");
   })
   .catch((err) => {
     console.error("Error occurred during Data Source initialization", err);
