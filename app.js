@@ -3,8 +3,6 @@ const http = require("http");
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const passport = require('passport');
-const passportConfig = require('./passport');
 
 const dotenv = require("dotenv")
 dotenv.config()
@@ -12,8 +10,9 @@ dotenv.config()
 const routes = require("./routes");
 const app = express();
 
-app.use(passport.initialize());
-passportConfig();
+
+
+
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
