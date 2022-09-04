@@ -15,5 +15,7 @@ const main = async () => {
     console.log(hashedPassword);
 }
 
-main()
+main() {
 => b'$2b$12$Fm3qBQocDZJfzCTbJeICWOIzaTgP2OzDrO0A2nHhVrMktR6GjiAk2';
+}
+
