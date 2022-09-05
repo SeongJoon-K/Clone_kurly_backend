@@ -3,11 +3,11 @@ const categoryService = require('../services/categoryService');
 
 const getcategory = async(req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.params;
         if (!id) {
             return res.status(400).json({ message : "CATEGORY_ID ERROR"});
         }
-        const category = await categoryService.getcategory(id);
+        const category = await categoryService.getcategory();
         res.status(201).json( {
             category
         });

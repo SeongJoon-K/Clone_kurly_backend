@@ -24,8 +24,7 @@ myDataSource.initialize()
 
   const getcategory = async(id) => {
     const category = await myDataSource.query(
-        `SELECT * FROM categories
-        WHERE id=?;`, (id))
+        `SELECT * FROM categories;`)
         return category
   }
 

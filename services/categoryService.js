@@ -1,7 +1,7 @@
 const categoryDao = require('../models/categoryDao');
 
-const getcategory = async(id) => {
-    const category = await categoryDao.getcategory(id);
+const getcategory = async() => {
+    const category = await categoryDao.getcategory();
     return category;
 }
 
