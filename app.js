@@ -10,9 +10,6 @@ dotenv.config()
 const routes = require("./routes");
 const app = express();
 
-
-
-
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());

@@ -1,7 +1,5 @@
 const { DataSource } = require('typeorm');
 
-
-
 const myDataSource = new DataSource({
     type: process.env.TYPEORM_CONNECTION,
     host: process.env.TYPEORM_HOST,
@@ -13,7 +11,7 @@ const myDataSource = new DataSource({
 
 myDataSource.initialize()
   .then(() => {
-    console.log("회원가입(signUp) DB연동 완료");
+    console.log("유저(users) DB연동 완료");
   })
   .catch((err) => {
     console.error("Error occurred during Data Source initialization", err);
@@ -22,17 +20,18 @@ myDataSource.initialize()
 
 // userDao 라우팅이 안되어 있어 app.js 에서 POST req 사용하였음.
 
-const createUser = async ( name, email, password, profileImage ) => {
+const createUser = async ( login_id, password, name, email, phone ) => {
 	try {
 		return await myDataSource.query(
 		`INSERT INTO users(
+		    login_id,
+		    password,
 		    name,
 		    email,
-		    password,
-		    profile_image,
-		) VALUES (?, ?, ?, ?);
+			phone
+		) VALUES (?, ?, ?, ?, ?);
 		`,
-		[ name, email, password, profileImage ]
+		[ login_id, password, name, email, phone ]
 	  );
 	} catch (err) {
 		const error = new Error('INVALID_DATA_INPUT');
@@ -41,10 +40,18 @@ const createUser = async ( name, email, password, profileImage ) => {
 	}
 };
 
+const login = async ( login_id ) => {
+	const data = await myDataSource.query(
+		`SELECT * FROM users
+		WHERE login_id=?`,
+		(login_id));
+	return JSON.parse(JSON.stringify(data))[0];
+}
 
 
 
 module.exports = {
-  createUser
+  createUser,
+  login
 }
 

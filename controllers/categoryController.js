@@ -1,3 +1,4 @@
+//categoryController.js
 const categoryService = require('../services/categoryService');
 
 const getcategory = async(req, res) => {

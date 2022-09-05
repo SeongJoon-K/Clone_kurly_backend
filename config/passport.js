@@ -1,66 +1,41 @@
-var db = require('./db');
-var conn = db.init();
-const bcrypt = require('bcrypt');
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
-const JWTStrategy = passportJWT.Strategy;
-const { ExtraJwt } = passportJWT;
-const LocalStrategy = require('passport-local').Strategy;
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local').Strategy; // 1
+// var User = require('../models/User');
 
-db.connect(conn);
+// // serialize & deserialize User // 2
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+// passport.deserializeUser(function(id, done) {
+//   User.findOne({_id:id}, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
-const LocalStrategyOption = {
-    usernameField: "user_id",
-    passwordField: "password"
-  };
-  async function localVerify(user_id, password, done) {
-    var user;
-    try {
-      var sql = 'select * from user where user_id = ?';
-      var params = [user_id];
-      await conn.query(sql, params, async function (err, rows, fields) {
-        if(err) {
-          console.log(err);
-          return done(null, false);
-        }
-        if(!rows[0]) return done(null, false);
-        user = rows[0];
-  
-        console.log(password, user.password);
-        const checkPassword = await bcrypt.compare(password, user.password);
-        console.log(checkPassword);
-        if(!checkPassword) return done(null, false);
-  
-        console.log(user);
-        return done(null, user);
-      }) 
-    } catch (e) {
-      return done(e);
-    }
-  }
-  
-  const jwtStrategyOption = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'jwt-secret-key',
-  };
-  async function jwtVerift(payload, done) {
-    var user;
-    try {
-      var sql = 'select * from user where user_id = ?';
-      var params = [payload.user_id];
-      await conn.query(sql, params, function (err, rows, fields) {
-        if(!rows[0]) return done(null, false);
-        user = rows[0];
-  
-        console.log(user);
-        return done(null, user);
-      });
-    } catch (e) {
-      return done(e);
-    }
-  }
-  
-  module.exports = () => {
-    passport.use(new LocalStrategy(LocalStrategyOption, localVerify));
-    passport.use(new JWTStrategy(jwtStrategyOption, jwtVerift));
-  }
+// // local strategy // 3
+// passport.use('local-login',
+//   new LocalStrategy({
+//       usernameField : 'username', // 3-1
+//       passwordField : 'password', // 3-1
+//       passReqToCallback : true
+//     },
+//     function(req, username, password, done) { // 3-2
+//       User.findOne({username:username})
+//         .select({password:1})
+//         .exec(function(err, user) {
+//           if (err) return done(err);
+
+//           if (user && user.authenticate(password)){ // 3-3
+//             return done(null, user);
+//           }
+//           else {
+//             req.flash('username', username);
+//             req.flash('errors', {login:'The username or password is incorrect.'});
+//             return done(null, false);
+//           }
+//         });
+//     }
+//   )
+// );
+
+// module.exports = passport;
