@@ -8,9 +8,9 @@ const getcategory = async(req, res) => {
             return res.status(400).json({ message : "CATEGORY_ID ERROR"});
         }
         const category = await categoryService.getcategory();
-        res.status(201).json( {
+        res.status(201).json( 
             category
-        });
+        );
     } catch (err) {
         console.log(err);
         return res.status(err.statusCode || 500).json({ message : err.message });
