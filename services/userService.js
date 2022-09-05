@@ -57,8 +57,8 @@ const login = async (login_id, password) => {
   } else {
     return null;
   }
-
 }
+
 const check = async(id) => {
   const check = await userDao.check(id);
   return check;
