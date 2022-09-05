@@ -45,7 +45,7 @@ const login = async ( login_id ) => {
 		`SELECT * FROM users
 		WHERE login_id=?`,
 		(login_id));
-	return JSON.parse(JSON.stringify(data))[0];
+	return { ...data[0] }
 }
 
 
