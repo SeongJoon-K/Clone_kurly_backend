@@ -16,8 +16,14 @@ const getbasket = async(user_id) => {
     return basket;
 }
 
+const updatebasket = async(user_id, product_id, amount) => {
+    const basket = await basketDao.updatebasket(user_id, product_id, amount);
+    return basket;
+}
+
 module.exports = {
     baskets,
-    getbasket
+    getbasket,
+    updatebasket
 }
 
