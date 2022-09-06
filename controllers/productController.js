@@ -24,6 +24,7 @@ const getproduct = async(req, res) => {
     try {
         // id가 없을 때, id param왔는데 레포에 없을 떄
         const id = req.params.id;
+        console.log(id)
         if (!id) {
             return res.status(400).json({ message : "ID_ERROR"});
         }

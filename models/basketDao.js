@@ -40,6 +40,14 @@ const createBasket = async ( user_id, product_id, amount ) => {
     }
 }
 
+const getbasket = async (user_id) => {
+    const basket = await myDataSource.query(
+        `SELECT * FROM baskets WHERE user_id=?`,(user_id)
+        )
+    return basket;
+}
+
 module.exports = {
-    createBasket
+    createBasket,
+    getbasket
 }
