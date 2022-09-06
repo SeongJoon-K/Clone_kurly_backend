@@ -16,8 +16,6 @@ const products = async (category_id ,title, thumbnail, description, price, disco
         discount
     );
     return createProduct;
-    
-    
 };
 const getproduct = async(id) => {
     const product = await productDao.getproduct(id);

@@ -2,7 +2,7 @@ const userDao = require('../models/userDao')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const signUp = async (login_id, password, name, email, phone) => {
+const signUp = async (login_id, password, name) => {
     // password validation using REGEX
     const pwValidation = new RegExp(
       '^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})'
@@ -15,11 +15,8 @@ const signUp = async (login_id, password, name, email, phone) => {
       const createUser = await userDao.createUser(
         login_id,
         password,
-        name,
-        email,
-        phone
+        name
         );
-      
         return createUser;
       };
 
@@ -40,13 +37,13 @@ const login = async (login_id, password) => {
   }
 }
 
-const check = async(id) => {
-  const check = await userDao.check(id);
-  return check;
-}
+// const check = async(id) => {
+//   const check = await userDao.check(id);
+//   return check;
+// }
   
   module.exports = {
       signUp,
       login,
-      check
+
   }

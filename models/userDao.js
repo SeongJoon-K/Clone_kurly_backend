@@ -20,7 +20,7 @@ myDataSource.initialize()
 
 // userDao 라우팅이 안되어 있어 app.js 에서 POST req 사용하였음.
 
-const createUser = async ( login_id, password, name, email, phone ) => {
+const createUser = async ( login_id, password, name ) => {
 	try {
 		return await myDataSource.query(
 		`INSERT INTO users(
@@ -31,7 +31,7 @@ const createUser = async ( login_id, password, name, email, phone ) => {
 			phone
 		) VALUES (?, ?, ?, ?, ?);
 		`,
-		[ login_id, password, name, email, phone ]
+		[ login_id, password, name ]
 	  );
 	} catch (err) {
 		const error = new Error('INVALID_DATA_INPUT');
@@ -48,7 +48,7 @@ const login = async ( login_id ) => {
 	return { ...data[0] }
 }
 
-
+// const check = async ()
 
 module.exports = {
   createUser,
