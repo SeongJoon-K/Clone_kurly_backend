@@ -45,9 +45,22 @@ const updatebasket = async(req, res) => {
     )
 }
 
+const deletebasket = async(req, res) => {
+    const { user_id, product_id } = req.body;
+    if ( !user_id|| !product_id) {
+        return res.status(400).json({ message: "userID, productID 입력 오류"});
+    }
+    const basket = await basketService.deletebasket(user_id, product_id);
+    res.status(200).json(
+        basket
+    )
+
+}
+
 
 module.exports = {
     baskets,
     getbasket,
-    updatebasket
+    updatebasket,
+    deletebasket
 }

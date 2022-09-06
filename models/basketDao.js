@@ -56,7 +56,19 @@ const updatebasket = async (user_id, product_id, amount) => {
     return basket;
 }
 
+const deletebasket = async (user_id, product_id) => {
+    const basket = await myDataSource.query(
+        `DELETE FROM baskets WHERE user_id= ${user_id} AND ${product_id}`
+    );
+    return basket;
+    // res.status(204).json({ message: "데이터 삭제 완료;"})
+}
+
+
+
 module.exports = {
     createBasket,
     getbasket,
-    updatebasket
+    updatebasket,
+    deletebasket
+}
