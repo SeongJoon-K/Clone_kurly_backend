@@ -52,7 +52,15 @@ const getproduct = async (id) => {
     return product
 }
 
+const detailproduct = async(id) => {
+    console.log(id);
+    const product = await myDataSource.query(
+        `SELECT title, description, price, discount FROM products WHERE id=?;`,(id))
+    return product;
+}
+
 module.exports = {
     createProduct,
-    getproduct
+    getproduct,
+    detailproduct
 }

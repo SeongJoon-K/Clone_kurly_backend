@@ -17,13 +17,22 @@ const products = async (category_id ,title, thumbnail, description, price, disco
     );
     return createProduct;
 };
+
+// 상품목록 GET service
 const getproduct = async(id) => {
     const product = await productDao.getproduct(id);
     return product;
 
 }   
 
+// 상품상세 GET service
+const detailproduct = async(id) => {
+    const product = await productDao.detailproduct(id);
+    return product;
+}
+
 module.exports = {
     products,
-    getproduct
+    getproduct,
+    detailproduct
 }
