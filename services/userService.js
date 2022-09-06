@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const signUp = async (login_id, password, name) => {
     // password validation using REGEX
+
     const pwValidation = new RegExp(
       '^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})'
     );
@@ -11,6 +12,13 @@ const signUp = async (login_id, password, name) => {
       const err = new Error('PASSWORD_IS_NOT_VALID');
       err.statusCode = 409;
       throw err;
+    }
+    if (!password.includes('@')){
+      return new Error("@ 가 포함되지 않았습니다.")
+    }
+
+    if (password.length < 10){
+      return new Error("비밀번호 길이가 짧습니다.")
     }
       const createUser = await userDao.createUser(
         login_id,

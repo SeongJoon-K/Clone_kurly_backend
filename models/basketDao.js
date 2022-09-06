@@ -47,7 +47,16 @@ const getbasket = async (user_id) => {
     return basket;
 }
 
+const updatebasket = async (user_id, product_id, amount) => {
+    console.log(amount, user_id, product_id)
+    const basket = await myDataSource.query(
+        `UPDATE baskets SET amount=? WHERE user_id=? AND product_id=?`,
+        [amount, user_id, product_id]
+        );
+    return basket;
+}
+
 module.exports = {
     createBasket,
-    getbasket
-}
+    getbasket,
+    updatebasket
