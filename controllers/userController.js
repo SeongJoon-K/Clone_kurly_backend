@@ -25,7 +25,6 @@ const signUp = async (req, res) => {
 const saltRounds = 8;
 
 const login = async (req, res, next) => {
-  let hashPw = "";
   try {
     const { login_id, password } = req.body;
     // Bcrypt 암호화

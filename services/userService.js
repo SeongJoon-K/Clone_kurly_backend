@@ -3,22 +3,15 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const signUp = async (login_id, password, name) => {
-    // password validation using REGEX
-
-    const pwValidation = new RegExp(
-      '^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})'
-    );
-    if (!pwValidation.test(password)) {
-      const err = new Error('PASSWORD_IS_NOT_VALID');
-      err.statusCode = 409;
-      throw err;
-    }
     if (!password.includes('@')){
-      return new Error("@ 가 포함되지 않았습니다.")
+      const err = new Error('@ 포함되지 않았습니다.');
+      err.statusCode = 409;
+      throw err;    
     }
-
     if (password.length < 10){
-      return new Error("비밀번호 길이가 짧습니다.")
+      const err = new Error('PW가 짧습니다.');
+      err.statusCode = 409;
+      throw err;        
     }
       const createUser = await userDao.createUser(
         login_id,
@@ -39,6 +32,7 @@ const login = async (login_id, password) => {
       process.env.SECRET_KEY, 
       {expiresIn: '1d'},
   );
+  console.log(accessToken);
     return accessToken;
   } else {
     return null;

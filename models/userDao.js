@@ -26,10 +26,8 @@ const createUser = async ( login_id, password, name ) => {
 		`INSERT INTO users(
 		    login_id,
 		    password,
-		    name,
-		    email,
-			phone
-		) VALUES (?, ?, ?, ?, ?);
+		    name
+		) VALUES (?, ?, ?);
 		`,
 		[ login_id, password, name ]
 	  );
