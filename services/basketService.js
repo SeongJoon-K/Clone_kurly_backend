@@ -21,8 +21,8 @@ const updatebasket = async(id,amount) => {
     return basket;
 }
 
-const deletebasket = async(user_id, product_id) => {
-    const basket = await basketDao.deletebasket(user_id, product_id);
+const deletebasket = async(id) => {
+    const basket = await basketDao.deletebasket(id);
     return basket;
 }
 
