@@ -1,10 +1,13 @@
 // 장바구니 basketService.js
 
 const basketDao = require('../models/basketDao');
+const SECRET_KEY="JwTsEcReTkEyOrHaShInG"
+const jwt = require('jsonwebtoken');
 
 const baskets = async (user_id, product_id, amount) => {
+    const accessToken = jwt.sign(user_id, SECRET_KEY);
     const createBasket = await basketDao.createBasket(
-        user_id, 
+        accessToken, 
         product_id, 
         amount
     );
