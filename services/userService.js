@@ -1,7 +1,6 @@
 const userDao = require('../models/userDao')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { useContainer } = require('typeorm');
 
 const signUp = async (login_id, password, name) => {
     if (!password.includes('@')){
@@ -31,7 +30,12 @@ const login = async (login_id, password) => {
   // const hashPw = await bcrypt.hash(password, 8);
   const user = await userDao.login(login_id, password);
   if (bcrypt.compare(password, user.password)) {
-    const accessToken = jwt.sign(login_id, process.env.SECRET_KEY);
+    const accessToken = jwt.sign(
+      {
+        id: user.id,
+      name: user.name
+      },
+      process.env.SECRET_KEY);
     console.log(accessToken);
     return accessToken;
   } 
@@ -43,13 +47,18 @@ const login = async (login_id, password) => {
   //     {expiresIn: '1d'},
   // );
 
-
-// const check = async(id) => {
-//   const check = await userDao.check(id);
-//   return check;
-// }
+// JWT 토큰 발급
+const profile = async(token) => {
+  const checkToken = jwt.verify(token, process.env.SECRET_KEY)
+  // const userName = await userDao.profile(token);
+  if (!checkToken) {
+    return;
+  }
+  return checkToken;  
+}
   
 module.exports = {
-    signUp,
-    login
+  signUp,
+  login,
+  profile
 }
