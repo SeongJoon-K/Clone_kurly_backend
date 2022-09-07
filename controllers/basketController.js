@@ -35,11 +35,11 @@ const getbasket = async(req, res) => {
 
 const updatebasket = async(req, res) => {
     // basket의 user_id를 받고 해당 상품의 id를 받음
-    const { user_id, product_id, amount } = req.body;
-    if ( !user_id || !product_id ) {
-        return res.status(400).json({ message: "유저ID 혹은 PW 오류"});
+    const { id, amount } = req.body;
+    if ( !id || !amount ) {
+        return res.status(400).json({ message: "장바구니 정보 입력 오류"});
     }
-    const basket = await basketService.updatebasket(user_id, product_id, amount);
+    const basket = await basketService.updatebasket(id, amount);
     res.status(200).json(
         basket
     )

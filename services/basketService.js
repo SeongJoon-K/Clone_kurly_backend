@@ -16,8 +16,8 @@ const getbasket = async(user_id) => {
     return basket;
 }
 
-const updatebasket = async(user_id, product_id, amount) => {
-    const basket = await basketDao.updatebasket(user_id, product_id, amount);
+const updatebasket = async(id,amount) => {
+    const basket = await basketDao.updatebasket(id,amount);
     return basket;
 }
 
