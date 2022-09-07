@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE baskets (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id VARCHAR(500) NOT NULL,
     product_id INT NOT NULL,
     amount INT NOT NULL,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

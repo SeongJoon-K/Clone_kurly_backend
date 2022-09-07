@@ -20,24 +20,16 @@ myDataSource.initialize()
 	  myDataSource.destroy();
   });
 
-const createBasket = async ( user_id, product_id, amount ) => {
-    try {
-        console.log(user_id, product_id, amount)
-        return await myDataSource.query(
-            `INSERT INTO baskets(
-                user_id, 
-                product_id, 
-                amount
-            ) VALUES (?, ?, ?);
-            `, 
-            [ user_id, product_id, amount ]
-        );
-
-    } catch (err) {
-        const error = new Error("장바구니 데이터를 잘 못 입력했습니다.")
-        error.statusCode = 500;
-        throw error;
-    }
+const createBasket = async ( accessToken, product_id, amount ) => {
+    return await myDataSource.query(
+        `INSERT INTO baskets(
+            user_id, 
+            product_id, 
+            amount
+        ) VALUES (?, ?, ?);
+        `, 
+        [ accessToken, product_id, amount ]
+    );
 }
 
 const getbasket = async (user_id) => {
