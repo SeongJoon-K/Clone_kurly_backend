@@ -33,7 +33,20 @@ const login = async (req, res) => {
   res.status(200).json(accessToken);
 };
 
+const profile = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  console.log(token,"dwqdwqdqw");
+  const decoded = await userService.profile(token);
+  console.log(decoded);
+  if (!decoded) {
+    res.status(400);
+    return;
+  }
+  res.status(200).json(decoded);
+}
+
 module.exports = {
 	signUp,
-  login
+  login,
+  profile
 }
