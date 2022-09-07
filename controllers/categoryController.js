@@ -17,6 +17,23 @@ const getcategory = async(req, res) => {
     }
 }
 
+const detailcategory = async(req, res) => {
+
+    try {
+        const id = req.params.id;
+        if (id === null) {
+            return res.status(400).json({ message : "CATEGORY ID IS NULL"});
+        }
+        const category = await categoryService.detailcategory(id);
+        res.status(200).json(
+            category
+        );
+    } catch (err) {
+        return res.status(err.statusCode || 500).json({ message : err.message });
+    }
+}
+
 module.exports = {
-    getcategory
+    getcategory,
+    detailcategory
 }
