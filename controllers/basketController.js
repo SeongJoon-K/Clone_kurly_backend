@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 // post 일땐 장바구니에 등록할 정보를 모두 입력 받아야함.
 const baskets = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];;
-  console.log("token", "여기 ")
   const { product_id, amount } = req.body;
   if (!token || !product_id || !amount) {
     return res.status(400)
@@ -37,11 +36,17 @@ const getbasket = async (req, res) => {
 
 const updatebasket = async (req, res) => {
   // basket의 user_id를 받고 해당 상품의 id를 받음
-  const { id, amount } = req.body;
+  const { amount } = req.body;
+  const { id } = req.params;
+  const token = req.headers.authorization.split(' ')[1];
   if (!id || !amount) {
     return res.status(400).json({ message: "장바구니 정보 입력 오류" });
   }
-  const basket = await basketService.updatebasket(id, amount);
+  const basket = await basketService.updatebasket(token, id, amount);
+  if (!basket) {
+    res.status(400);
+    return;
+  }
   res.status(200).json(basket);
 };
 

@@ -19,9 +19,12 @@ const getbasket = async (token) => {
     return basket;
 }
 
-const updatebasket = async (id, amount) => {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
-    const basket = await basketDao.updatebasket(decoded.id);
+const updatebasket = async (token, id, amount) => {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decoded) {
+        return;
+    }
+    const basket = await basketDao.updatebasket(id, amount);
     return basket;
 }
 
