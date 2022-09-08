@@ -46,8 +46,6 @@ const createProduct = async ( category_id ,title, thumbnail, description, price,
 const getproduct = async () => {
     const product = await myDataSource.query(
         `SELECT * FROM products`)
-
-
     return product
 }
 

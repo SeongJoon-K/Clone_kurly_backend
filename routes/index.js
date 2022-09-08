@@ -8,7 +8,7 @@ const baskerRouter = require("./basketRouter");
 const promotionRouter = require("./promotionRouter");
 
 
-router.use("/users", userRouter.router);
+router.use("/", userRouter.router);
 router.use("/products", productRouter.router);
 router.use("/categories", categoryRouter.router);
 router.use("/baskets", baskerRouter.router);

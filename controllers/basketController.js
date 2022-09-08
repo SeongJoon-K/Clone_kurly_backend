@@ -1,14 +1,12 @@
 // 장바구니 basketsController.js
-const { createBasket } = require("../models/basketDao");
 const basketService = require("../services/basketService");
-const SECRET_KEY="JwTsEcReTkEyOrHaShInG";
 const jwt = require('jsonwebtoken');
 
 
 // post 일땐 장바구니에 등록할 정보를 모두 입력 받아야함.
 const baskets = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];;
-  
+  console.log("token", "여기 ")
   const { product_id, amount } = req.body;
   if (!token || !product_id || !amount) {
     return res.status(400)
