@@ -23,7 +23,6 @@ myDataSource.initialize()
   });
 
 const promotions = async(id) => {
-    console.log("여기오나?", id)
     const promotion = await myDataSource.query(
         `SELECT * FROM promotions;`   
     );
