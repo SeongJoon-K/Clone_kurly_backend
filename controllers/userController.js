@@ -36,7 +36,6 @@ const login = async (req, res) => {
 const profile = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = await userService.profile(token);
-  console.log(decoded);
   if (!decoded) {
     res.status(400);
     return;
