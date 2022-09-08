@@ -3,7 +3,7 @@ const promotionController = require('../controllers/promotionController');
 
 const router = express.Router();
 
-router.get('/:id', promotionController.promotions);
+router.get('/', promotionController.promotions);
 
 module.exports = {
     router
