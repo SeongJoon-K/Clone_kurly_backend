@@ -60,5 +60,5 @@ module.exports = {
   baskets,
   getbasket,
   updatebasket,
-  deletebasket,
+  deletebasket
 };
