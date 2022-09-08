@@ -7,18 +7,19 @@ const jwt = require('jsonwebtoken');
 
 // post 일땐 장바구니에 등록할 정보를 모두 입력 받아야함.
 const baskets = async (req, res) => {
-    // const token = req.headers.authorization;
-    const { user_id, product_id, amount } = req.body;
-    await basketService.baskets(user_id, product_id, amount);
-    const token = jwt.sign(user_id, SECRET_KEY);
-    const decoded = jwt.verify(token,SECRET_KEY)
-    console.log(token,"d먼데");
-    if (!user_id || !product_id || !amount) {
-      return res.status(400)
-    }
-    res.status(200).json(
-        decoded
-    )
+  const token = req.headers.authorization.split(' ')[1];;
+  
+  const { product_id, amount } = req.body;
+  if (!token || !product_id || !amount) {
+    return res.status(400)
+  }
+  try {
+    await basketService.baskets(token, product_id, amount);
+    res.status(201);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  
 
 };
 

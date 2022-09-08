@@ -4,14 +4,13 @@ const basketDao = require('../models/basketDao');
 const SECRET_KEY="JwTsEcReTkEyOrHaShInG"
 const jwt = require('jsonwebtoken');
 
-const baskets = async (user_id, product_id, amount) => {
-    const accessToken = jwt.sign(user_id, SECRET_KEY);
+const baskets = async (token, product_id, amount) => {
+    const decoded = jwt.verify(token, SECRET_KEY)
     const createBasket = await basketDao.createBasket(
-        accessToken, 
+        decoded.id,
         product_id, 
         amount
     );
-    return createBasket;
 };
 
 const getbasket = async(user_id) => {

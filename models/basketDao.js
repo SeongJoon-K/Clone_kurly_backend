@@ -20,7 +20,7 @@ myDataSource.initialize()
 	  myDataSource.destroy();
   });
 
-const createBasket = async ( accessToken, product_id, amount ) => {
+const createBasket = async ( user_id, product_id, amount ) => {
     return await myDataSource.query(
         `INSERT INTO baskets(
             user_id, 
@@ -28,7 +28,7 @@ const createBasket = async ( accessToken, product_id, amount ) => {
             amount
         ) VALUES (?, ?, ?);
         `, 
-        [ accessToken, product_id, amount ]
+        [ user_id, product_id, amount ]
     );
 }
 
