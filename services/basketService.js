@@ -13,13 +13,15 @@ const baskets = async (token, product_id, amount) => {
     );
 };
 
-const getbasket = async(user_id) => {
-    const basket = await basketDao.getbasket(user_id);
+const getbasket = async (token) => {
+    const decoded = jwt.verify(token, SECRET_KEY)
+    const basket = await basketDao.getbasket(decoded.id);
     return basket;
 }
 
-const updatebasket = async(id,amount) => {
-    const basket = await basketDao.updatebasket(id,amount);
+const updatebasket = async (id, amount) => {
+    const decoded = jwt.verify(token, SECRET_KEY)
+    const basket = await basketDao.updatebasket(decoded.id);
     return basket;
 }
 
