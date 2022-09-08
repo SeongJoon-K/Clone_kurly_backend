@@ -19,8 +19,8 @@ const products = async (category_id ,title, thumbnail, description, price, disco
 };
 
 // 상품목록 GET service
-const getproduct = async(id) => {
-    const product = await productDao.getproduct(id);
+const getproduct = async() => {
+    const product = await productDao.getproduct();
     return product;
 
 }   
