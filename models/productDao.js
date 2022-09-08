@@ -52,7 +52,7 @@ const getproduct = async () => {
 const detailproduct = async(id) => {
     console.log(id);
     const product = await myDataSource.query(
-        `SELECT title, description, price, discount FROM products WHERE id=?;`,(id))
+        `SELECT * FROM products WHERE id=?;`,(id))
     return product[0]; // RowDataPocket이 []로 감싸져 있어서 [0] 추가하였음
 }
 
