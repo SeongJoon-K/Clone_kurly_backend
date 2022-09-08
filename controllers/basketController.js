@@ -51,11 +51,12 @@ const updatebasket = async (req, res) => {
 };
 
 const deletebasket = async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400).json({ message: "Primary Key 입력 오류" });
+  const token = req.headers.authorization.split(' ')[1];
+  const { id } = req.params;
+  if (! id || !token) {
+    return res.status(400);
   }
-  const basket = await basketService.deletebasket(id);
+  const basket = await basketService.deletebasket(token, id);
   res.status(200).json(basket);
 };
 

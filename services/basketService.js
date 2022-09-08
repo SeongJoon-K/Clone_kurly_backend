@@ -28,7 +28,11 @@ const updatebasket = async (token, id, amount) => {
     return basket;
 }
 
-const deletebasket = async(id) => {
+const deletebasket = async (token, id) => {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decoded) {
+        return;
+    }
     const basket = await basketDao.deletebasket(id);
     return basket;
 }

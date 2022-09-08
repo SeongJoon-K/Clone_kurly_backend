@@ -53,7 +53,6 @@ const deletebasket = async (id) => {
         `DELETE FROM baskets WHERE id=${id}`
     );
     return basket;
-    // res.status(204).json({ message: "데이터 삭제 완료;"})
 }
 
 
