@@ -39,11 +39,11 @@ const getbasket = async (user_id) => {
     return basket;
 }
 
-const updatebasket = async (id,amount) => {
-    console.log(id, amount)
+const updatebasket = async (user_id ,amount) => {
+    console.log(user_id, amount)
     const basket = await myDataSource.query(
         `UPDATE baskets SET amount=? WHERE id=?`,
-        [amount, id]
+        [amount, user_id]
         );
     return basket;
 }
