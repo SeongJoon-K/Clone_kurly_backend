@@ -9,3 +9,6 @@ CREATE TABLE favorites (
 
 -- migrate:down
 DROP TABLE favorites;
+
+
+-- 찜목록 DB
