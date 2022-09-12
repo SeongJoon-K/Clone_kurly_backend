@@ -20,3 +20,15 @@ myDataSource.initialize()
     console.error("Error occurred during Data Source initialization", err);
 	  myDataSource.destroy();
   });
+
+
+const getfavorite = async(product_id, user_id, discount, price) => {
+  const favorite = await myDataSource.query(
+  // `SELECT product_id, amount FROM baskets WHERE user_id=?`,(user_id)
+        )
+    return favorite;
+}
+
+module.exports = {
+  getfavorite
+}
