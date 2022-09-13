@@ -1,24 +1,4 @@
-const { DataSource } = require('typeorm'); // typeorm 설정
-
-// RDBMS 연동 mysql 설정
-const myDataSource = new DataSource({
-    type: process.env.TYPEORM_CONNECTION,
-    host: process.env.TYPEORM_HOST,
-    port: process.env.TYPEORM_PORT,
-    username: process.env.TYPEORM_USERNAME,
-    password: process.env.TYPEORM_PASSWORD,
-    database: process.env.TYPEORM_DATABASE
-})
-
-
-myDataSource.initialize()
-  .then(() => {
-    console.log("장바구니(baskets) DB 연동 완료");
-  })
-  .catch((err) => {
-    console.error("Error occurred during Data Source initialization", err);
-	  myDataSource.destroy();
-  });
+const db = require('../db');
 
 const createBasket = async ( user_id, product_id, amount ) => {
     return await myDataSource.query(

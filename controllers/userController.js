@@ -4,6 +4,18 @@ const SECRET_KEY = "JwTsEcReTkEyOrHaShInG";
 const bcrypt = require('bcrypt');
 
 
+/*
+ 내가 뭘하고 싶은 걸 적어라 , a
+목적: 회원가입 API > DB에 저장
+- 저장에 필요한 데이터를 받음
+ - ID
+ - PW
+ - name
+- 추가 조건 
+ - key error
+ - input validations
+*/
+
 const signUp = async (req, res) => {
   try {
     const { login_id, password, name } = req.body;

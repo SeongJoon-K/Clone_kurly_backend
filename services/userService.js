@@ -1,23 +1,30 @@
-const userDao = require('../models/userDao')
+// 1. built-in node modules
+// 2. 3rd party module >> npm install 로 받은 것들
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// 3. Project 내에 module(내가 만든 것들)
+const userDao = require('../models/userDao')
+const COST_FACTOR = 10;
+
 const signUp = async (login_id, password, name) => {
-    if (!password.includes('@')){
-      const err = new Error('@ 포함되지 않았습니다.');
+  const PASSWORD_LENGTH = 10;  
+  if (!password.includes('@')) {
+      const err = new Error('@ is not included.');
       err.statusCode = 400;
       throw err;    
     }
-    if (password.length < 10){
-      const err = new Error('PW가 짧습니다.');
+    if (password.length < PASSWORD_LENGTH){
+      const err = new Error('Password is short');
       err.statusCode = 400;
       throw err;        
     }
   
-    const hashPw = await bcrypt.hash(password, 8); // Bcrypt 암호화
+    const hashedPassword = await bcrypt.hash(hashedPassword, COST_FACTOR); // Bcrypt 암호화
       const createUser = await userDao.createUser(
         login_id,
-        hashPw, 
+        hashedPassword, 
         name
         );
         return createUser;
