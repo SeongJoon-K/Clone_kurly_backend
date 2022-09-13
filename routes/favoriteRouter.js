@@ -1,9 +1,9 @@
-const express = require('express');
-const favoriteController = require('../controllers/favoriteController');
+// const express = require('express');
+// const favoriteController = require('../controllers/favoriteController');
 
-const router = express.Router();
+// const router = express.Router();
 
 
-router.get('/', favoriteController.getfavorite); // 해당 유저의 찜목록 HTTP
+// router.get('/', favoriteController.getfavorite); // 해당 유저의 찜목록 HTTP
 
-// 찜목록 API
+// // 찜목록 API

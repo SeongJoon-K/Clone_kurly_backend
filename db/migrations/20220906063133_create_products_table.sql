@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    category_id INT NOT NULL,
+    category_id INT NOT NULL FOREIGN KEY (category_id) REFERENCES categories (id),
     title VARCHAR(100) NOT NULL,
     thumbnail VARCHAR(100) NOT NULL,
     description VARCHAR(1000) NOT NULL,
