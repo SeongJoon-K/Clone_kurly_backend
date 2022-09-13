@@ -1,24 +1,24 @@
 const db = require('../db');
 // userDao 라우팅이 안되어 있어 app.js 에서 POST req 사용하였음.
 
-const createUser = async ( login_id, hashPw, name ) => {
+const createUser = async ( loginId, hashPw, name ) => {
 	console.log("hash PW : ",hashPw)
 	return await myDataSource.query(
 	`INSERT INTO users(
-		login_id,
+		loginId,
 		password,
 		name
 	) VALUES (?, ?, ?);
 	`,
-	[ login_id, hashPw, name ]
+	[ loginId, hashPw, name ]
 	);
 };
 
-const login = async ( login_id, password) => {
+const login = async ( loginId, password) => {
 	const [user] = await myDataSource.query(
 		`SELECT * FROM users
-		WHERE login_id=?`,
-		(login_id));
+		WHERE loginId=?`,
+		(loginId));
 	return user
 }
 

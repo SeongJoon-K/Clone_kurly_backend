@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const userDao = require('../models/userDao')
 const COST_FACTOR = 10;
 
-const signUp = async (login_id, password, name) => {
+const signUp = async (loginId, password, name) => {
   const PASSWORD_LENGTH = 10;  
   if (!password.includes('@')) {
       const err = new Error('@ is not included.');
@@ -23,7 +23,7 @@ const signUp = async (login_id, password, name) => {
   
     const hashedPassword = await bcrypt.hash(hashedPassword, COST_FACTOR); // Bcrypt 암호화
       const createUser = await userDao.createUser(
-        login_id,
+        loginId,
         hashedPassword, 
         name
         );
@@ -33,9 +33,9 @@ const signUp = async (login_id, password, name) => {
 
 
 // 로그인 POST API JWT 인증
-const login = async (login_id, password) => {
+const login = async (loginId, password) => {
   // const hashPw = await bcrypt.hash(password, 8);
-  const user = await userDao.login(login_id, password);
+  const user = await userDao.login(loginId, password);
   if (bcrypt.compare(password, user.password)) {
     const accessToken = jwt.sign(
       {
