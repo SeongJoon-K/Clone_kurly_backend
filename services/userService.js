@@ -32,7 +32,7 @@ const signUp = async (loginId, password, name) => {
 
 // 로그인 POST API JWT 인증
 const login = async (loginId, password) => {
-  const user = await userDao.login(loginId, password);
+  const user = await userDao.login(loginId);
   if (bcrypt.compare(password, user.password)) {
     const accessToken = jwt.sign(
       {
