@@ -10,8 +10,10 @@ const signUp = async (req, res) => {
     if ( !loginId || !password || !name) {
       return res.status(400).json({ message: 'KEY_ERROR' });
     }
-    await userService.signUp( loginId, password, name );
-    return res.status(201);
+    const signupPost = await userService.signUp( loginId, password, name );
+    res.status(201).json(
+      signupPost
+    );
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });

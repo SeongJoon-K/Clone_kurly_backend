@@ -1,4 +1,4 @@
-const db = require('../db');
+const { myDataSource } = require('../dbconfig.js');
 
 const promotions = async(id) => {
     const promotion = await myDataSource.query(
