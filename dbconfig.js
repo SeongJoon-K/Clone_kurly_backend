@@ -17,3 +17,7 @@ myDataSource.initialize()
     console.error("Error occurred during Data Source initialization", err);
 	  myDataSource.destroy();
   });
+
+module.exports = {
+    myDataSource
+  }

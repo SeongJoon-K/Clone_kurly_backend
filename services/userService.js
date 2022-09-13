@@ -21,7 +21,7 @@ const signUp = async (loginId, password, name) => {
       throw err;        
     }
   
-    const hashedPassword = await bcrypt.hash(hashedPassword, COST_FACTOR); // Bcrypt 암호화
+    const hashedPassword = await bcrypt.hash(password, COST_FACTOR); // Bcrypt 암호화
       const createUser = await userDao.createUser(
         loginId,
         hashedPassword, 

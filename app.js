@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
-app.use(routes,validateToken);
+app.use(routes.router);
 // 여기서 routes/index가 아닌 이유는 해당 디렉토리를 호출시 필연적으로 index.js가 알아서 발동되기 때문에
 // route만 작성한다.
 

@@ -1,4 +1,4 @@
-const db = require('../db');
+const { myDataSource } = require('../dbconfig.js');
 
 const createBasket = async ( user_id, product_id, amount ) => {
     return await myDataSource.query(
