@@ -11,7 +11,7 @@ const myDataSource = new DataSource({
 
 myDataSource.initialize()
   .then(() => {
-    console.log("DB연동 완료");
+    console.log("DB INTITIALIZED 완료");
   })
   .catch((err) => {
     console.error("Error occurred during Data Source initialization", err);

@@ -18,12 +18,12 @@ const bcrypt = require('bcrypt');
 
 const signUp = async (req, res) => {
   try {
-    const { login_id, password, name } = req.body;
+    const { loginId, password, name } = req.body;
 
-    if ( !login_id || !password || !name) {
+    if ( !loginId || !password || !name) {
       return res.status(400).json({ message: 'KEY_ERROR' });
     }
-    await userService.signUp( login_id, password, name );
+    await userService.signUp( loginId, password, name );
     return res.status(201);
   } catch (err) {
     console.log(err);
@@ -33,12 +33,12 @@ const signUp = async (req, res) => {
 
 
 const login = async (req, res) => {
-  const { login_id, password } = req.body;
-  if( !login_id || !password ) {
+  const { loginId, password } = req.body;
+  if( !loginId || !password ) {
     return res.status(400);
   }
   // 로그인 요청에서 받은 password를 hashPw 로 바꿔서 service로 보냄
-  const accessToken = await userService.login(login_id, password);
+  const accessToken = await userService.login(loginId, password);
   if (!accessToken) {
     return res.status(400);
   }
