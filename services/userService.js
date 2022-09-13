@@ -30,11 +30,8 @@ const signUp = async (loginId, password, name) => {
         return createUser;
 };
 
-
-
 // 로그인 POST API JWT 인증
 const login = async (loginId, password) => {
-  // const hashPw = await bcrypt.hash(password, 8);
   const user = await userDao.login(loginId, password);
   if (bcrypt.compare(password, user.password)) {
     const accessToken = jwt.sign(
@@ -43,25 +40,18 @@ const login = async (loginId, password) => {
       name: user.name
       },
       process.env.SECRET_KEY);
-    console.log(accessToken);
     return accessToken;
   } 
 }
-  // if (user.password === password) {
-  //   const accessToken = jwt.sign(
-  //     user,
-  //     process.env.SECRET_KEY, 
-  //     {expiresIn: '1d'},
-  // );
 
 // JWT 토큰 발급
-const profile = async(token) => {
-  const checkToken = jwt.verify(token, process.env.SECRET_KEY)
-  // const userName = await userDao.profile(token);
+const profile = async() => {
+  // const checkToken = jwt.verify(token, process.env.SECRET_KEY)
+  const userName = await userDao.profile();
   if (!checkToken) {
     return;
   }
-  return checkToken;  
+  return userName;  
 }
   
 module.exports = {
