@@ -1,19 +1,19 @@
-const userDao = require('../models/userDao');
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const validateToken = async (req, res, next) => {
-    try {
-       req.decoded = jwt.verify(req.headers.authorization, process.env.SECRET_KEY)
-	    return next();
-    } catch (err) {
-        res.status(419).json({ 
-            code: 419,
-            message: "토큰이 만료되었습니다."
-        })
-    }
-    return res.status(401).json({message : "유효하지 않은 토큰"})
+  try {
+    console.log(req.headers.authorization.split(" ")[1]);
+    req.decoded = await jwt.verify(
+      req.headers.authorization.split(" ")[1],
+      process.env.SECRET_KEY
+    );
+    console.log(req.decoded);
+    return next();
+  } catch (err) {
+    return res.status(401);
+  }
 };
 
 module.exports = {
-    validateToken
-}
+  validateToken,
+};
