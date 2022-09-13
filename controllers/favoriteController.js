@@ -19,3 +19,7 @@ const getfavorite = async(req, res) => {
 // 찜목록 
 // product_id >> 해당 프로덕트에 가격이랑 할인율 합쳐서 나옴
 // user_id JWT 로 인증함
+
+module.exports = {
+    getfavorite
+}
