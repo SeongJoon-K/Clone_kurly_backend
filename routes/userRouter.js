@@ -1,5 +1,4 @@
 const express = require('express');
-
 const validation = require('../middlewares/auth');
 const userController = require('../controllers/userController');
 
