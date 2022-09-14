@@ -29,7 +29,11 @@ const createProduct = async (
 };
 
 const getProductList = async (categoryId) => {
-  const product = await myDataSource.query(`SELECT * FROM products`);
+  const query = "SELECT * FROM products";
+  if (categoryId) {
+    query.concat("WHERE ~");
+  }
+  const product = await myDataSource.query(query);
   return product;
 };
 
