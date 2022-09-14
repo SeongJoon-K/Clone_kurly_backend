@@ -27,7 +27,7 @@ const products = async (req, res) => {
       discount
     );
 
-    res.status(201).json({ message: "상품정보가 성공적으로 입력되었습니다." });
+    res.status(201).json({ message: "product data input in " });
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
