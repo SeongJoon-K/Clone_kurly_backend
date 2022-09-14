@@ -2,11 +2,10 @@
 
 const productService = require("../services/productService");
 
-const products = async (req, res) => {
+const createProduct = async (req, res) => {
   try {
     const { category_id, title, thumbnail, description, price, discount } =
       req.body;
-
     if (
       !category_id ||
       !title ||
@@ -34,18 +33,18 @@ const products = async (req, res) => {
   }
 };
 
-const getproduct = async (req, res) => {
-  const product = await productService.getproduct();
+const getProductList = async (req, res) => {
+  const product = await productService.getProductList();
   res.status(200).json(product);
 };
 
-const detailproduct = async (req, res) => {
+const getProduct = async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
       return res.status(400);
     }
-    const product = await productService.detailproduct(id);
+    const product = await productService.getProduct(id);
     res.status(200).json(product);
   } catch (err) {
     return res.status(500);
@@ -53,7 +52,7 @@ const detailproduct = async (req, res) => {
 };
 
 module.exports = {
-  products,
-  getproduct,
-  detailproduct,
+  createProduct,
+  getProductList,
+  getProduct,
 };
