@@ -31,6 +31,7 @@ const login = async (loginId, password) => {
       },
       process.env.SECRET_KEY
     );
+    // name 주지 말고 중복될 수 있음 (동명이인) PK 를 사용해야한다.
     return accessToken;
   }
   if (!loginId || !password) {
