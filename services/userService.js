@@ -32,7 +32,6 @@ const login = async (loginId, password) => {
   if (bcrypt.compare(password, user[0].password)) {
     const accessToken = jwt.sign(
       {
-        id: user[0].loginId,
         name: user[0].name,
       },
       process.env.SECRET_KEY
