@@ -22,9 +22,18 @@ const login = async (loginId) => {
   );
 };
 
-// const check = async ()
+const profile = async (userId) => {
+  return await myDataSource.query(
+    `SELECT 
+    name 
+    FROM users
+    WHERE id=?`,
+    [userId]
+  );
+};
 
 module.exports = {
   createUser,
   login,
+  profile,
 };

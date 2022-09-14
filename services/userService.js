@@ -35,11 +35,10 @@ const login = async (loginId, password) => {
 };
 
 // 프론트에서 JWT 토큰 입력시 해당유저의 name 출력
-const profile = async () => {
-  // const checkToken = jwt.verify(token, process.env.SECRET_KEY)
-  const userName = await userDao.profile();
-  if (!checkToken) {
-    return;
+const profile = async (userId) => {
+  const userName = await userDao.profile(userId);
+  if (!userName) {
+    return res.status(400).json({ message: "PK IS UNDEFINED" });
   }
   return userName;
 };

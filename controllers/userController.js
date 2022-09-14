@@ -32,7 +32,8 @@ const login = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-  res.status(200).json(req.decoded);
+  const getProfile = await userService.profile(req.userId);
+  res.status(200).json(getProfile);
 };
 
 module.exports = {
