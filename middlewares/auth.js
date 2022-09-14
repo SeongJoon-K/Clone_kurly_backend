@@ -2,17 +2,14 @@ const jwt = require("jsonwebtoken");
 
 const validateToken = async (req, res, next) => {
   try {
-    console.log(req.headers.authorization);
+    // console.log(req.headers.authorization);
     // 토큰 값을 변수에 넣어서 저장해서 verify 시킨다.
-    // const payload
-    req.decoded = await jwt.verify(
-      req.headers.authorization,
-      process.env.SECRET_KEY
-    );
-    // req.userId = payload.id 여기에 담아야함.
+    const payload = req.headers.authorization;
+    req.decoded = await jwt.verify(payload, process.env.SECRET_KEY);
+    req.userId = req.decoded.userId;
     // req.객체 안에 새로운 속성을 만든거라고 const 필요 없음.
 
-    // console.log(req.decoded); 이거 빼자
+    console.log(req.userId, "dwqd");
     next();
   } catch (err) {
     return res.status(401).json({ message: "TOKEN IS NOT VALID" });
