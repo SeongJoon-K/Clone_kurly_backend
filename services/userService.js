@@ -1,22 +1,17 @@
 // 1. built-in node modules
 // 2. 3rd party module >> npm install 로 받은 것들
+// 3. Project 내에 module(내가 만든 것들)
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-// 3. Project 내에 module(내가 만든 것들)
 const userDao = require("../models/userDao");
 const COST_FACTOR = 10;
 
 const signUp = async (loginId, password, name) => {
   const PASSWORD_LENGTH = 10;
-  if (!password.includes("@")) {
-    const err = new Error("@ is not included.");
-    err.statusCode = 400;
-    throw err;
-  }
-  if (password.length < PASSWORD_LENGTH) {
-    const err = new Error("Password is short");
+  if (!password.includes("@") || password.length < PASSWORD_LENGTH) {
+    const err = new Error("PASSWORD IS NOT VALID");
     err.statusCode = 400;
     throw err;
   }
@@ -38,9 +33,12 @@ const login = async (loginId, password) => {
     );
     return accessToken;
   }
+  if (!loginId || !password) {
+    return res.status(400).json({ message: "ID or PW is undefined" });
+  }
 };
 
-// JWT 토큰 발급
+// 프론트에서 JWT 토큰 입력시 해당유저의 name 출력
 const profile = async () => {
   // const checkToken = jwt.verify(token, process.env.SECRET_KEY)
   const userName = await userDao.profile();
