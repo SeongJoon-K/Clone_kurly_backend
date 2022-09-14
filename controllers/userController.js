@@ -1,6 +1,7 @@
-const userService = require("../services/userService");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
+const userService = require("../services/userService");
 
 const signUp = async (req, res) => {
   try {
@@ -10,7 +11,7 @@ const signUp = async (req, res) => {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
     const signupPost = await userService.signUp(loginId, password, name);
-    res.status(201).json(signupPost);
+    res.status(201).json({ message: "Created Successful " });
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
