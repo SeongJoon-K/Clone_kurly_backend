@@ -1,7 +1,7 @@
 const { myDataSource } = require("../dbconfig.js");
 
 const createProduct = async (
-  category_id,
+  categoryId,
   title,
   thumbnail,
   description,
@@ -11,7 +11,7 @@ const createProduct = async (
   try {
     return await myDataSource.query(
       `INSERT INTO products(
-                category_id,
+                categoryId,
                 title,
                 thumbnail,
                 description,
@@ -19,7 +19,7 @@ const createProduct = async (
                 discount
             ) VALUES (?, ?, ?, ?, ?, ?);
             `,
-      [category_id, title, thumbnail, description, price, discount]
+      [categoryId, title, thumbnail, description, price, discount]
     );
   } catch (err) {
     const error = new Error("허용되지 않는 데이터 입력");
@@ -28,7 +28,7 @@ const createProduct = async (
   }
 };
 
-const getProductList = async () => {
+const getProductList = async (categoryId) => {
   const product = await myDataSource.query(`SELECT * FROM products`);
   return product;
 };
