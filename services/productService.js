@@ -1,6 +1,6 @@
 const productDao = require("../models/productDao");
 
-const products = async (
+const createProduct = async (
   category_id,
   title,
   thumbnail,
@@ -26,19 +26,19 @@ const products = async (
 };
 
 // 상품목록 GET service
-const getproduct = async () => {
-  const product = await productDao.getproduct();
+const getProductList = async () => {
+  const product = await productDao.getProductList();
   return product;
 };
 
 // 상품상세 GET service
-const detailproduct = async (id) => {
-  const product = await productDao.detailproduct(id);
+const getProduct = async (id) => {
+  const product = await productDao.getProduct(id);
   return product;
 };
 
 module.exports = {
-  products,
-  getproduct,
-  detailproduct,
+  createProduct,
+  getProductList,
+  getProduct,
 };
