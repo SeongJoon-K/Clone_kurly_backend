@@ -4,10 +4,10 @@ const productService = require("../services/productService");
 
 const createProduct = async (req, res) => {
   try {
-    const { category_id, title, thumbnail, description, price, discount } =
+    const { categoryId, title, thumbnail, description, price, discount } =
       req.body;
     if (
-      !category_id ||
+      !categoryId ||
       !title ||
       !thumbnail ||
       !description ||
@@ -18,7 +18,7 @@ const createProduct = async (req, res) => {
     }
 
     await productService.products(
-      category_id,
+      categoryId,
       title,
       thumbnail,
       description,
@@ -34,8 +34,16 @@ const createProduct = async (req, res) => {
 };
 
 const getProductList = async (req, res) => {
-  const product = await productService.getProductList();
-  res.status(200).json(product);
+  try {
+    const { categoryId } = req.body;
+    if (!categoryId) {
+      const allCategoryProduct = await productService.getProductList();
+      res.status(200).json(allCategoryProduct);
+    }
+    const categoryProduct = await productService.getProductList(categoryId);
+    res.status(200).json(categoryProduct);
+  } catch (err) {}
+  return res.status(400).json({ message: "KEY_ERROR" });
 };
 
 const getProduct = async (req, res) => {
