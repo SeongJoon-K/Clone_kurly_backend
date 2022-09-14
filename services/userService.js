@@ -34,7 +34,7 @@ const login = async (loginId, password) => {
     return accessToken;
   }
   if (!loginId || !password) {
-    return res.status(400).json({ message: "ID or PW is undefined" });
+    return res.status(400).json({ message: "ID or PW IS UNDEFINED" });
   }
 };
 

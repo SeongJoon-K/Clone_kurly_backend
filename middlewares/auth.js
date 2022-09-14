@@ -10,7 +10,7 @@ const validateToken = async (req, res, next) => {
     console.log(req.decoded);
     return next();
   } catch (err) {
-    return res.status(401);
+    return res.status(401).json({ message: "TOKEN IS NOT VALID" });
   }
 };
 
