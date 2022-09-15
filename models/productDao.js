@@ -29,7 +29,26 @@ const createProduct = async (
 };
 
 const getProductList = async (categoryId, minPrice, maxPrice, order) => {
-  const query = `
+  const query = [];
+
+  // 빌더로
+  if (categoryId) {
+    query.push(`categoryId=${categoryId}`);
+  }
+  if (minPrice) {
+    query.push(`price >= ${minPrice}`);
+  }
+  if (maxPrice) {
+    query.push(`price <= ${maxPrice}`);
+  }
+  if (order) {
+    query.push(`ORDER BY ${order}`);
+  }
+
+  // string 배열 조건 생각해라
+  // Join , 하면 띄어쓰기 된다 조건 생각해라.
+  myDataSource.query(
+    `
     SELECT 
       id, 
       categoryId, 
@@ -38,16 +57,16 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
       description, 
       price, 
       discount 
-    FROM products`;
+    FROM products`.concat()
+  );
 
   // categoryId is exist
   if (categoryId) {
     // only minPrice exist
+    const addQuery = query + ` WHERE categoryId=${categoryId}`;
     if (minPrice && !maxPrice) {
       const priceQuery = addQuery + ` AND price >= ${minPrice}`;
-      console.log("ㅈㅇㅈㅂㅇㅇㅈㅂㅇㅈㅂ");
       const product = await myDataSource.query(priceQuery);
-
       return product;
     }
     // only maxPrice exist
@@ -63,15 +82,10 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
       const priceQuery =
         addQuery + ` AND price >= ${minPrice} AND price <= ${maxPrice}`;
       const product = await myDataSource.query(priceQuery);
-      console.log("104");
-
       return product;
     }
     // price boundary null
-    const addQuery = query + ` WHERE categoryId=${categoryId}`;
-    console.log(query, "q");
     const product = await myDataSource.query(addQuery);
-
     return product;
   }
 
@@ -80,16 +94,12 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
     if (minPrice && !maxPrice) {
       const priceQuery = query + ` WHERE price >= ${minPrice}`;
       const product = await myDataSource.query(priceQuery);
-      console.log("102");
-
       return product;
     }
     // only maxPrice exist
     if (maxPrice && !minPrice) {
       const priceQuery = query + ` WHERE price <= ${maxPrice}`;
       const product = await myDataSource.query(priceQuery);
-      console.log("101");
-
       return product;
     }
     // minPrice and maxPrice exist
@@ -97,22 +107,10 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
       const priceQuery =
         query + ` WHERE price >= ${minPrice} AND price <= ${maxPrice}`;
       const product = await myDataSource.query(priceQuery);
-      console.log("100");
       return product;
     }
     // categoryId AND price boundary x
-    const Query = `SELECT 
-  id, 
-  categoryId, 
-  title, 
-  thumbnail,
-  description, 
-  price, 
-  discount 
-  FROM products
-  ORDER BY price ${order}`;
-    const product = await myDataSource.query(Query);
-    console.log("둘다 없음");
+    const product = await myDataSource.query(query);
     return product;
   }
 };
