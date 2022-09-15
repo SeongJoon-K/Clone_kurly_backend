@@ -29,7 +29,7 @@ const createProduct = async (
 };
 
 const getProductList = async (categoryId) => {
-  let query = `SELECT * FROM products`;
+  const query = `SELECT * FROM products`;
   if (categoryId != undefined) {
     const addQuery = query + ` WHERE categoryId=${categoryId}`;
     const product = await myDataSource.query(addQuery);
