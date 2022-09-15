@@ -41,8 +41,9 @@ const getProductList = async (req, res) => {
       price
     );
     res.status(200).json({ data: allCategoryProduct });
-  } catch (err) {}
-  return res.status(400).json({ message: "KEY_ERROR" });
+  } catch (err) {
+    return res.status(400).json({ message: "KEY_ERROR" });
+  }
 };
 
 const getProduct = async (req, res) => {
