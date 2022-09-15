@@ -1,7 +1,8 @@
 const productDao = require("../models/productDao");
+const { login } = require("./userService");
 
 const createProduct = async (
-  category_id,
+  categoryId,
   title,
   thumbnail,
   description,
@@ -15,7 +16,7 @@ const createProduct = async (
     throw err;
   }
   const createProduct = await productDao.createProduct(
-    category_id,
+    categoryId,
     title,
     thumbnail,
     description,
@@ -26,8 +27,8 @@ const createProduct = async (
 };
 
 // 상품목록 GET service
-const getProductList = async (category_id) => {
-  const getProductList = await productDao.getProductList(category_id);
+const getProductList = async (categoryId) => {
+  const getProductList = await productDao.getProductList(categoryId);
   return getProductList;
 };
 

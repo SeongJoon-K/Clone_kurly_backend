@@ -1,0 +1,112 @@
+[
+    {
+      "id": 0,
+      "categoryId": 1,
+      "title": "testtitle6",
+      "thumbnail": "dqw",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.3
+    },
+    {
+      "id": 1,
+      "categoryId": 1,
+      "title": "testtitle2",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.2
+    },
+    {
+      "id": 2,
+      "categoryId": 1,
+      "title": "testtitle3",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 2000,
+      "discount": 0.2
+    },
+    {
+      "id": 3,
+      "categoryId": 2,
+      "title": "testtitle4",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 400000,
+      "discount": 0.1
+
+    },
+    {
+      "id": 4,
+      "categoryId": 2,
+      "title": "testtitle5",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 10000,
+      "discount": 0.1
+    },
+    {
+      "id": 5,
+      "categoryId": 2,
+      "title": "testtitle6",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.1
+    },
+    {
+      "id": 6,
+      "categoryId": 2,
+      "title": "testtitle7",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.1
+    },
+    {
+      "id": 7,
+      "categoryId": 3, 
+      "title": "testtitle8",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 999999999999,
+      "discount": 0.1
+    },
+    {
+      "id": 8,
+      "categoryId": 3,
+      "title": "testtitle9",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.5
+    },
+    {
+      "id": 9,
+      "categoryId": 3,
+      "title": "testtitle10",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.5
+
+    },
+    {
+      "id": 10,
+      "categoryId": 4,
+      "title": "testtitle11",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 39293000,
+      "discount": 0.5
+    },
+    {
+      "id": 11,
+      "categoryId": 4,
+      "title": "testtitle12",
+      "thumbnail": "https://cdn.pixabay.com/photo/2022/07/06/12/04/candles-7304948_1280.jpg",
+      "description": "테스트를 위한 가짜상품입니다.",
+      "price": 100000000,
+      "discount": 0.5
+    }
+]
