@@ -28,17 +28,25 @@ const createProduct = async (
   }
 };
 
-const getProductList = async (categoryId, minPrice, maxPrice) => {
-  const query = `SELECT id, categoryId,title, thumbnail, description, price, discount FROM products`;
+const getProductList = async (categoryId, minPrice, maxPrice, order) => {
+  const query = `
+    SELECT 
+      id, 
+      categoryId, 
+      title, 
+      thumbnail,
+      description, 
+      price, 
+      discount 
+    FROM products`;
+
   // categoryId is exist
   if (categoryId) {
-    const addQuery = query + ` WHERE categoryId=${categoryId}`;
-
     // only minPrice exist
     if (minPrice && !maxPrice) {
       const priceQuery = addQuery + ` AND price >= ${minPrice}`;
+      console.log("ㅈㅇㅈㅂㅇㅇㅈㅂㅇㅈㅂ");
       const product = await myDataSource.query(priceQuery);
-      console.log("106");
 
       return product;
     }
@@ -53,22 +61,22 @@ const getProductList = async (categoryId, minPrice, maxPrice) => {
     // minPrice and maxPrice exist
     if (minPrice && maxPrice) {
       const priceQuery =
-        addQuery + ` AND price >= ${minPrice} AND price <= ${maxPrice} `;
+        addQuery + ` AND price >= ${minPrice} AND price <= ${maxPrice}`;
       const product = await myDataSource.query(priceQuery);
       console.log("104");
 
       return product;
     }
     // price boundary null
+    const addQuery = query + ` WHERE categoryId=${categoryId}`;
+    console.log(query, "q");
     const product = await myDataSource.query(addQuery);
-    console.log("103");
 
     return product;
   }
 
   // categoryId is null
   if (!categoryId) {
-    // only minPrice
     if (minPrice && !maxPrice) {
       const priceQuery = query + ` WHERE price >= ${minPrice}`;
       const product = await myDataSource.query(priceQuery);
@@ -87,13 +95,23 @@ const getProductList = async (categoryId, minPrice, maxPrice) => {
     // minPrice and maxPrice exist
     if (minPrice && maxPrice) {
       const priceQuery =
-        query + ` WHERE price >= ${minPrice} AND price <= ${maxPrice} `;
+        query + ` WHERE price >= ${minPrice} AND price <= ${maxPrice}`;
       const product = await myDataSource.query(priceQuery);
       console.log("100");
       return product;
     }
     // categoryId AND price boundary x
-    const product = await myDataSource.query(query);
+    const Query = `SELECT 
+  id, 
+  categoryId, 
+  title, 
+  thumbnail,
+  description, 
+  price, 
+  discount 
+  FROM products
+  ORDER BY price ${order}`;
+    const product = await myDataSource.query(Query);
     console.log("둘다 없음");
     return product;
   }
