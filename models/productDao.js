@@ -31,7 +31,14 @@ const createProduct = async (
 const getProductList = async (categoryId) => {
   const query = "SELECT * FROM products";
   if (categoryId) {
-    query.concat("WHERE ~");
+    query.concat("WHERE categoryId=", [categoryId]);
+    console.log(query);
+    return query;
+  }
+  if (!categoryId) {
+    query.concat("");
+    console.log(query);
+    return query;
   }
   const product = await myDataSource.query(query);
   return product;
