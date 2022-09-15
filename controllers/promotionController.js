@@ -7,6 +7,5 @@ const promotions = async (req, res) => {
 };
 
 module.exports = {
-    promotions
-}
-// 배너 받아올 때,
+  promotions,
+};

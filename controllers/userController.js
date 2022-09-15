@@ -6,7 +6,6 @@ const userService = require("../services/userService");
 const signUp = async (req, res) => {
   try {
     const { loginId, password, name } = req.body;
-    console.log(loginId);
     if (!loginId || !password || !name) {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
