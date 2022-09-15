@@ -33,12 +33,19 @@ const createProduct = async (req, res) => {
   }
 };
 
+/*
+- 가격필터 적용 경우의 수
+1. minPrice < x
+2. minPrice < x < maxPrice
+3. x < maxPrice
+*/
 const getProductList = async (req, res) => {
   try {
-    const { categoryId, price } = req.query;
+    const { categoryId, minPrice, maxPrice } = req.query;
     const allCategoryProduct = await productService.getProductList(
       categoryId,
-      price
+      minPrice,
+      maxPrice
     );
     res.status(200).json({ data: allCategoryProduct });
   } catch (err) {
