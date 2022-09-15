@@ -27,8 +27,8 @@ const createProduct = async (
 };
 
 // 상품목록 GET service
-const getProductList = async (categoryId) => {
-  const getProductList = await productDao.getProductList(categoryId);
+const getProductList = async (categoryId, price) => {
+  const getProductList = await productDao.getProductList(categoryId, price);
   return getProductList;
 };
 

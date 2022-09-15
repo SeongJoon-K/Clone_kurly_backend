@@ -29,9 +29,10 @@ const createProduct = async (
 };
 
 const getProductList = async (categoryId) => {
-  const query = `SELECT * FROM products`;
+  const query = `SELECT id, title, thumbnail, description, price, discount FROM products`;
   if (categoryId != undefined) {
     const addQuery = query + ` WHERE categoryId=${categoryId}`;
+
     const product = await myDataSource.query(addQuery);
     return product;
   }
