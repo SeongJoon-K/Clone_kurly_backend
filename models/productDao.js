@@ -28,16 +28,73 @@ const createProduct = async (
   }
 };
 
-const getProductList = async (categoryId) => {
-  const query = `SELECT id, title, thumbnail, description, price, discount FROM products`;
+const getProductList = async (categoryId, minPrice, maxPrice) => {
+  const query = `SELECT id, categoryId,title, thumbnail, description, price, discount FROM products`;
+  // categoryId is exist
   if (categoryId) {
     const addQuery = query + ` WHERE categoryId=${categoryId}`;
 
+    // only minPrice exist
+    if (minPrice && !maxPrice) {
+      const priceQuery = addQuery + ` AND price >= ${minPrice}`;
+      const product = await myDataSource.query(priceQuery);
+      console.log("106");
+
+      return product;
+    }
+    // only maxPrice exist
+    if (maxPrice && !minPrice) {
+      const priceQuery = addQuery + ` AND price <= ${maxPrice}`;
+      const product = await myDataSource.query(priceQuery);
+      console.log("105");
+
+      return product;
+    }
+    // minPrice and maxPrice exist
+    if (minPrice && maxPrice) {
+      const priceQuery =
+        addQuery + ` AND price >= ${minPrice} AND price <= ${maxPrice} `;
+      const product = await myDataSource.query(priceQuery);
+      console.log("104");
+
+      return product;
+    }
+    // price boundary null
     const product = await myDataSource.query(addQuery);
+    console.log("103");
+
     return product;
   }
+
+  // categoryId is null
   if (!categoryId) {
+    // only minPrice
+    if (minPrice && !maxPrice) {
+      const priceQuery = query + ` WHERE price >= ${minPrice}`;
+      const product = await myDataSource.query(priceQuery);
+      console.log("102");
+
+      return product;
+    }
+    // only maxPrice exist
+    if (maxPrice && !minPrice) {
+      const priceQuery = query + ` WHERE price <= ${maxPrice}`;
+      const product = await myDataSource.query(priceQuery);
+      console.log("101");
+
+      return product;
+    }
+    // minPrice and maxPrice exist
+    if (minPrice && maxPrice) {
+      const priceQuery =
+        query + ` WHERE price >= ${minPrice} AND price <= ${maxPrice} `;
+      const product = await myDataSource.query(priceQuery);
+      console.log("100");
+      return product;
+    }
+    // categoryId AND price boundary x
     const product = await myDataSource.query(query);
+    console.log("둘다 없음");
     return product;
   }
 };
