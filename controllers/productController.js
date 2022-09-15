@@ -35,9 +35,12 @@ const createProduct = async (req, res) => {
 
 const getProductList = async (req, res) => {
   try {
-    const { categoryId } = req.query;
-    const allCategoryProduct = await productService.getProductList(categoryId);
-    res.status(200).json(allCategoryProduct);
+    const { categoryId, price } = req.query;
+    const allCategoryProduct = await productService.getProductList(
+      categoryId,
+      price
+    );
+    res.status(200).json({ data: allCategoryProduct });
   } catch (err) {}
   return res.status(400).json({ message: "KEY_ERROR" });
 };
