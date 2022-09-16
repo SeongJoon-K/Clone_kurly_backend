@@ -41,11 +41,13 @@ const createProduct = async (req, res) => {
 */
 const getProductList = async (req, res) => {
   try {
-    const { categoryId, minPrice, maxPrice } = req.query;
+    const { categoryId, minPrice, maxPrice, order } = req.query;
+    // console.log(req.query);
     const allCategoryProduct = await productService.getProductList(
       categoryId,
       minPrice,
-      maxPrice
+      maxPrice,
+      order
     );
     res.status(200).json({ data: allCategoryProduct });
   } catch (err) {
