@@ -33,6 +33,7 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
   const defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
   const query = [defaultQuery];
   // console.log(defaultQuery, "sadqsdwqdwdqw");
+  // productCondition()
 
   const categoryIdString = ` categoryId=${categoryId}`;
   const minPriceString = ` price >= ${minPrice}`;
