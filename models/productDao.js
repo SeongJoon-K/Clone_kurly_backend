@@ -1,6 +1,34 @@
 const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
+
+function productCondition(...params) { // 배열 형태로 들어감
+  const productConditionArray = [];
+  if (categoryId) {
+    const categoryIdString = ` categoryId=${categoryId}`;
+    productConditionArray.push(categoryId);    
+  }
+  if (minPrice) {
+    const minPriceString = ` price >= ${minPrice}`;
+    productConditionArray.push(minPrice);
+  }
+  if (maxPrice) {
+    const maxPriceString = ` price <= ${maxPrice}`;
+    productConditionArray.push(maxPrice);
+  }
+  console.log(categoryId, minPrice);
+  console.log(params);
+  // 해당 조건의 값이 정의 되었을 때 push 함
+
+  // 해당 값이 존재할 때만 배열에 넣어야함.
+
+}
+
+function productOrder(order) {
+  const productOrderArray = [];
+}
+
+
 const createProduct = async (
   categoryId,
   title,
@@ -35,9 +63,14 @@ const getProductList = async (categoryId, minPrice, maxPrice, order) => {
   // console.log(defaultQuery, "sadqsdwqdwdqw");
   // productCondition()
 
+  productCondition(categoryId, minPrice, maxPrice);
+
+  // WHERE condition
   const categoryIdString = ` categoryId=${categoryId}`;
   const minPriceString = ` price >= ${minPrice}`;
   const maxPriceString = ` price <= ${maxPrice}`;
+
+  // ORDER BY condition
   const orderBy = ` ORDER BY price ${order}`;
   let fullQuery = "";
   if (categoryId) {
