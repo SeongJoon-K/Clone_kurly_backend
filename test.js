@@ -1,20 +1,30 @@
 
 const categoryId = 1
 const minPrice = 123
-const maxPrice = 400
+// const maxPrice = undefined
 // WHERE가 들어가는 조건이 들어갔을 때,
 function productCondition(...params) { // 배열 형태로 들어감
-
-  const categoryIdString = ` categoryId=${categoryId}`;
-  const minPriceString = ` price >= ${minPrice}`;
-  const maxPriceString = ` price <= ${maxPrice}`;
-  const productConditionArray = [...params]
+  const productConditionArray = [];
+  if (categoryId) {
+    const categoryIdString = ` categoryId=${categoryId}`;
+    productConditionArray.push(categoryId);    
+  }
+  if (minPrice) {
+    const minPriceString = ` price >= ${minPrice}`;
+    productConditionArray.push(minPrice);
+  }
+  if (maxPrice) {
+    const maxPriceString = ` price <= ${maxPrice}`;
+    productConditionArray.push(maxPrice);
+  }
+  
+  console.log(params,"check");
+  // 해당 조건의 값이 정의 되었을 때 push 함
   console.log(productConditionArray);
+  // 해당 값이 존재할 때만 배열에 넣어야함.
 
 }
-
-
-productCondition(categoryId, minPrice, maxPrice);
+productCondition(categoryId, minPrice);
 /* 
 필요한 조건에 대해서 
 
