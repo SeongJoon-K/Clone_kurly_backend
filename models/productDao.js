@@ -1,6 +1,43 @@
 const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
+function productCondition(categoryId, minPrice, maxPrice) {
+  let conditionStr = [" WHERE"];
+  const categoryIdString = ` categoryId=${categoryId}`;
+  const minPriceString = ` price >= ${minPrice}`;
+  const maxPriceString = ` price <= ${maxPrice}`;
+  if (categoryId && conditionStr.length === 1) {
+    conditionStr.push(categoryIdString);
+  } else if (categoryId && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(categoryIdString);
+  }
+  if (minPrice && conditionStr.length === 1) {
+    conditionStr.push(minPriceString);
+  } else if (minPrice && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(minPriceString);
+  }
+  if (maxPrice && conditionStr.length === 1) {
+    conditionStr.push(maxPriceString);
+  } else if (maxPrice && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(maxPriceString);
+  }
+  const whereStr = conditionStr.join("");
+  return whereStr;
+}
+
+function productOrder(order) {
+  let conditionStr = [];
+  const orderByStr = ` ORDER BY price ${order}`;
+  if (order) {
+    conditionStr.push(orderByStr);
+  }
+  const orderStr = conditionStr.join("");
+  return orderStr;
+}
+//
 const createProduct = async (
   categoryId,
   title,
@@ -30,84 +67,83 @@ const createProduct = async (
 };
 
 const getProductList = async (categoryId, minPrice, maxPrice, order) => {
-  const defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
+  let defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
   const query = [defaultQuery];
-  // console.log(defaultQuery, "sadqsdwqdwdqw");
 
-  const categoryIdString = ` categoryId=${categoryId}`;
-  const minPriceString = ` price >= ${minPrice}`;
-  const maxPriceString = ` price <= ${maxPrice}`;
-  const orderBy = ` ORDER BY price ${order}`;
-  let fullQuery = "";
-  if (categoryId) {
-    query.push(categoryIdString);
-  }
-  if (minPrice) {
-    query.push(minPriceString);
-  }
-  if (maxPrice) {
-    query.push(maxPriceString);
-  }
-  if (order) {
-    query.push(orderBy);
-  }
+  // productCondition(categoryId, minPrice, maxPrice);
+  // productOrder(order);
 
-  if (query.length === 2) {
-    // order 만 포함됐을 시
-    if (query[1] === orderBy) {
-      fullQuery = query.concat("");
-      fullQuery = fullQuery.join("");
-      console.log(fullQuery);
-    }
+  defaultQuery =
+    defaultQuery +
+    productCondition(categoryId, minPrice, maxPrice) +
+    productOrder(order);
+  console.log(defaultQuery);
 
-    // 조건만 포함시
-    if (query[1] !== orderBy) {
-      query.splice(1, 0, ` WHERE`);
-      fullQuery = query.join(""); // join 할때 아무것도 없어야함.
-      console.log(fullQuery);
-    }
-  }
-  if (query.length === 3) {
-    //order 포함시
-    if (query[2] === orderBy) {
-      query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 4
-      fullQuery = query.join("");
-      console.log(fullQuery);
-    }
-    // order 없을 시
-    if (query[2] !== orderBy) {
-      query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 4
-      query.splice(3, 0, ` AND`); // 늘어났으니 길이 5
-      fullQuery = query.join("");
-      console.log(fullQuery);
-    }
-  }
-  if (query.length === 4) {
-    // order 포함시 WHERE 한번 AND 한번 2,1
-    if (query[3] === orderBy) {
-      console.log("1");
-      query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 5
-      query.splice(3, 0, ` AND`); // 늘어났으니 길이 6
-      fullQuery = query.join("");
-      console.log(fullQuery);
-    }
-    if (query[3] !== orderBy && query.length === 4) {
-      // order 미포함 WHERE AND AND
-      console.log("2");
-      query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 5
-      query.splice(3, 0, ` AND`); // 늘어났으니 길이 6
-      query.splice(5, 0, ` AND`); // 늘어났으니 길이 7
-      fullQuery = query.join("");
-      console.log(fullQuery);
-    }
-  }
-  if (query.length === 5) {
-    query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 6
-    query.splice(3, 0, ` AND`); // 늘어났으니 길이 7
-    query.splice(5, 0, ` AND`); // 늘어났으니 길이 8
-    fullQuery = query.join("");
-    console.log(fullQuery);
-  }
+  // const categoryIdString = ` categoryId=${categoryId}`;
+  // const minPriceString = ` price >= ${minPrice}`;
+  // const maxPriceString = ` price <= ${maxPrice}`;
+  // const orderBy = ` ORDER BY price ${order}`;
+
+  // if (order) {
+  //   query.push(orderBy);
+  // }
+
+  // if (query.length === 2) {
+  //   // order 만 포함됐을 시
+  //   if (query[1] === orderBy) {
+  //     fullQuery = query.concat("");
+  //     fullQuery = fullQuery.join("");
+  //     console.log(fullQuery);
+  //   }
+
+  //   // 조건만 포함시
+  //   if (query[1] !== orderBy) {
+  //     query.splice(1, 0, ` WHERE`);
+  //     fullQuery = query.join(""); // join 할때 아무것도 없어야함.
+  //     console.log(fullQuery);
+  //   }
+  // }
+  // if (query.length === 3) {
+  //   //order 포함시
+  //   if (query[2] === orderBy) {
+  //     query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 4
+  //     fullQuery = query.join("");
+  //     console.log(fullQuery);
+  //   }
+  //   // order 없을 시
+  //   if (query[2] !== orderBy) {
+  //     query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 4
+  //     query.splice(3, 0, ` AND`); // 늘어났으니 길이 5
+  //     fullQuery = query.join("");
+  //     console.log(fullQuery);
+  //   }
+  // }
+  // if (query.length === 4) {
+  //   // order 포함시 WHERE 한번 AND 한번 2,1
+  //   if (query[3] === orderBy) {
+  //     console.log("1");
+  //     query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 5
+  //     query.splice(3, 0, ` AND`); // 늘어났으니 길이 6
+  //     fullQuery = query.join("");
+  //     console.log(fullQuery);
+  //   }
+  //   if (query[3] !== orderBy && query.length === 4) {
+  //     // order 미포함 WHERE AND AND
+  //     console.log("2");
+  //     query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 5
+  //     query.splice(3, 0, ` AND`); // 늘어났으니 길이 6
+  //     query.splice(5, 0, ` AND`); // 늘어났으니 길이 7
+  //     fullQuery = query.join("");
+  //     console.log(fullQuery);
+  //   }
+  // }
+  // if (query.length === 5) {
+  //   query.splice(1, 0, ` WHERE`); // 늘어났으니 길이 6
+  //   query.splice(3, 0, ` AND`); // 늘어났으니 길이 7
+  //   query.splice(5, 0, ` AND`); // 늘어났으니 길이 8
+  //   fullQuery = query.join("");
+  //   console.log(fullQuery);
+  // }
 
   const product = await myDataSource.query(fullQuery);
   return product;
