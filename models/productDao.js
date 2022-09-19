@@ -1,43 +1,6 @@
 const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
-function productCondition(categoryId, minPrice, maxPrice) {
-  let conditionStr = [" WHERE"];
-  const categoryIdString = ` categoryId=${categoryId}`;
-  const minPriceString = ` price >= ${minPrice}`;
-  const maxPriceString = ` price <= ${maxPrice}`;
-  if (categoryId && conditionStr.length === 1) {
-    conditionStr.push(categoryIdString);
-  } else if (categoryId && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(categoryIdString);
-  }
-  if (minPrice && conditionStr.length === 1) {
-    conditionStr.push(minPriceString);
-  } else if (minPrice && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(minPriceString);
-  }
-  if (maxPrice && conditionStr.length === 1) {
-    conditionStr.push(maxPriceString);
-  } else if (maxPrice && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(maxPriceString);
-  }
-  const whereStr = conditionStr.join("");
-  return whereStr;
-}
-
-function productOrder(order) {
-  let conditionStr = [];
-  const orderByStr = ` ORDER BY price ${order}`;
-  if (order) {
-    conditionStr.push(orderByStr);
-  }
-  const orderStr = conditionStr.join("");
-  return orderStr;
-}
-//
 const createProduct = async (
   categoryId,
   title,
@@ -69,9 +32,6 @@ const createProduct = async (
 const getProductList = async (categoryId, minPrice, maxPrice, order) => {
   let defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
   const query = [defaultQuery];
-
-  // productCondition(categoryId, minPrice, maxPrice);
-  // productOrder(order);
 
   defaultQuery =
     defaultQuery +
