@@ -40,19 +40,17 @@ const createProduct = async (req, res) => {
 3. x < maxPrice
 */
 const getProductList = async (req, res) => {
-  try {
-    const { categoryId, minPrice, maxPrice, order, page } = req.query;
-    const allCategoryProduct = await productService.getProductList(
-      categoryId,
-      minPrice,
-      maxPrice,
-      order,
-      page
-    );
-    res.status(200).json({ data: allCategoryProduct });
-  } catch (err) {
-    return res.status(400).json({ message: "KEY_ERROR" });
-  }
+  const { categoryId, minPrice, maxPrice, order, limit, page } = req.query;
+  const allCategoryProduct = await productService.getProductList(
+    categoryId,
+    minPrice,
+    maxPrice,
+    order,
+    limit,
+    page
+  );
+  console.log("먼데");
+  res.status(200).json({ data: allCategoryProduct });
 };
 
 const getProduct = async (req, res) => {
