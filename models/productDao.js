@@ -3,7 +3,7 @@ const { myDataSource } = require("../dbconfig.js");
 
 function productCondition(categoryId, minPrice, maxPrice) {
   let conditionStr = [" WHERE"];
-  const categoryIdString = ` categoryId=${categoryId}`;
+  const categoryIdString = ` categoryId = ${categoryId}`;
   const minPriceString = ` price >= ${minPrice}`;
   const maxPriceString = ` price <= ${maxPrice}`;
   if (categoryId && conditionStr.length === 1) {
@@ -37,8 +37,8 @@ function productOrder(order) {
 }
 //
 
-function productLimit(page) {
-  const pageStr = ` LIMIT 6 OFFSET ${(page - 1) * 6}`;
+function productLimit(limit, page) {
+  const pageStr = ` LIMIT ${limit} OFFSET ${(page - 1) * limit}`;
   if (page) {
     return pageStr;
   }
@@ -74,21 +74,21 @@ const createProduct = async (
   }
 };
 
-const getProductList = async (categoryId, minPrice, maxPrice, order, page) => {
+const getProductList = async (
+  categoryId,
+  minPrice,
+  maxPrice,
+  order,
+  limit,
+  page
+) => {
   let defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
-  const query = [defaultQuery];
-  // productCondition(categoryId, minPrice, maxPrice);
-  // productOrder(order);
-
-  // console.log(defaultQuery);
-  // console.log(productLimit(page));
-  // console.log(productCondition(categoryId, minPrice, maxPrice), "das");
-  // console.log(productOrder(order), "dsdqwdq");
-  const fullQuery =
+  let fullQuery =
     defaultQuery +
-    productLimit(page) +
     productCondition(categoryId, minPrice, maxPrice) +
-    productOrder(order);
+    productOrder(order) +
+    productLimit(limit, page) +
+    ";";
 
   const product = await myDataSource.query(fullQuery);
   return product;
