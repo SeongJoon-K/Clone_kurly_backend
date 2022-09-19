@@ -1,6 +1,43 @@
 const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
+function productCondition(categoryId, minPrice, maxPrice) {
+  let conditionStr = [" WHERE"];
+  const categoryIdString = ` categoryId=${categoryId}`;
+  const minPriceString = ` price >= ${minPrice}`;
+  const maxPriceString = ` price <= ${maxPrice}`;
+  if (categoryId && conditionStr.length === 1) {
+    conditionStr.push(categoryIdString);
+  } else if (categoryId && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(categoryIdString);
+  }
+  if (minPrice && conditionStr.length === 1) {
+    conditionStr.push(minPriceString);
+  } else if (minPrice && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(minPriceString);
+  }
+  if (maxPrice && conditionStr.length === 1) {
+    conditionStr.push(maxPriceString);
+  } else if (maxPrice && conditionStr.length !== 1) {
+    conditionStr.push(` AND`);
+    conditionStr.push(maxPriceString);
+  }
+  const whereStr = conditionStr.join("");
+  return whereStr;
+}
+
+function productOrder(order) {
+  let conditionStr = [];
+  const orderByStr = ` ORDER BY price ${order}`;
+  if (order) {
+    conditionStr.push(orderByStr);
+  }
+  const orderStr = conditionStr.join("");
+  return orderStr;
+}
+//
 const createProduct = async (
   categoryId,
   title,
@@ -32,6 +69,9 @@ const createProduct = async (
 const getProductList = async (categoryId, minPrice, maxPrice, order) => {
   let defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
   const query = [defaultQuery];
+
+  // productCondition(categoryId, minPrice, maxPrice);
+  // productOrder(order);
 
   defaultQuery =
     defaultQuery +
@@ -134,53 +174,4 @@ module.exports = {
   */
 // string 배열 조건 생각해라
 // Join , 하면 띄어쓰기 된다 조건 생각해라.
-
-// categoryId is exist
-// if (categoryId) {
-//   // only minPrice exist
-//   const addQuery = query + ` WHERE categoryId=${categoryId}`;
-//   if (minPrice && !maxPrice) {
-//     const priceQuery = addQuery + ` AND price >= ${minPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-//     return product;
-//   }
-//   // only maxPrice exist
-//   if (maxPrice && !minPrice) {
-//     const priceQuery = addQuery + ` AND price <= ${maxPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-
-//     return product;
-//   }
-//   // minPrice and maxPrice exist
-//   if (minPrice && maxPrice) {
-//     const priceQuery =
-//       addQuery + ` AND price >= ${minPrice} AND price <= ${maxPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-//     return product;
-//   }
-//   // price boundary null
-//   const product = await myDataSource.query(addQuery);
-//   return product;
-// }
-
-// categoryId is null
-// if (!categoryId) {
-//   if (minPrice && !maxPrice) {
-//     const priceQuery = query + ` WHERE price >= ${minPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-//     return product;
-//   }
-//   // only maxPrice exist
-//   if (maxPrice && !minPrice) {
-//     const priceQuery = query + ` WHERE price <= ${maxPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-//     return product;
-//   }
-//   // minPrice and maxPrice exist
-//   if (minPrice && maxPrice) {
-//     const priceQuery =
-//       query + ` WHERE price >= ${minPrice} AND price <= ${maxPrice}`;
-//     const product = await myDataSource.query(priceQuery);
-//     return product;
-//   }
-// categoryId AND price boundary x
+// 수정
