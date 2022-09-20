@@ -2,29 +2,29 @@ const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
 function productCondition(categoryId, minPrice, maxPrice) {
-  let conditionStr = [" WHERE"];
+  let conditionArr = [];
   const categoryIdString = ` categoryId = ${categoryId}`;
   const minPriceString = ` price >= ${minPrice}`;
   const maxPriceString = ` price <= ${maxPrice}`;
-  if (categoryId && conditionStr.length === 1) {
-    conditionStr.push(categoryIdString);
-  } else if (categoryId && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(categoryIdString);
+  if (categoryId) {
+    conditionArr.push(categoryIdString);
   }
-  if (minPrice && conditionStr.length === 1) {
-    conditionStr.push(minPriceString);
-  } else if (minPrice && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(minPriceString);
+  if (minPrice) {
+    conditionArr.push(minPriceString);
   }
-  if (maxPrice && conditionStr.length === 1) {
-    conditionStr.push(maxPriceString);
-  } else if (maxPrice && conditionStr.length !== 1) {
-    conditionStr.push(` AND`);
-    conditionStr.push(maxPriceString);
+  if (maxPrice) {
+    conditionArr.push(maxPriceString);
   }
-  const whereStr = conditionStr.join("");
+  const arrRange = conditionArr.length * 2;
+  if (conditionArr.length === 1) {
+    conditionArr.splice(0, 0, ` WHERE`);
+  } else if (conditionArr.length >= 2) {
+    conditionArr[0] = ` WHERE`;
+    for (let i = 2; i < arrRange; i += 2) {
+      conditionArr.splice(i, 0, ` AND`);
+    }
+  }
+  const whereStr = conditionArr.join("");
   return whereStr;
 }
 
@@ -89,7 +89,7 @@ const getProductList = async (
     productOrder(order) +
     productLimit(limit, page) +
     ";";
-
+  console.log(fullQuery);
   const product = await myDataSource.query(fullQuery);
   return product;
 };

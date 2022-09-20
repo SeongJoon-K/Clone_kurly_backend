@@ -49,7 +49,6 @@ const getProductList = async (req, res) => {
     limit,
     page
   );
-  console.log("먼데");
   res.status(200).json({ data: allCategoryProduct });
 };
 
