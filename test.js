@@ -25,6 +25,3 @@ function productCondition(categoryId, minPrice, maxPrice) {
   const whereStr = conditionStr.join("");
   return whereStr;
 }
-/* 2, 4, 6 
-W a A a  
-*/
