@@ -17,6 +17,40 @@ const signUp = async (req, res) => {
   }
 };
 
+const startKakao = async (req, res) => {
+  const hostUrl = "http://kauth.kakao.com";
+  const config = {
+    client_id: process.env.KAKAO_RESTAPI,
+    redirect_url: process.env.KAKAO_REDIRECT,
+    response_type: "code",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${hostUrl}?${params}`;
+  console.log(finalUrl);
+  return res.redirect(finalUrl);
+};
+
+const finishKakao = async (req, res) => {
+  const hostUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    client_id: process.env.KAKAO_RESTAPI,
+    client_secret: process.env.KAKAO_SECRET,
+    grant_type: "authorization_code",
+    redirect_url: "http://127.0.0.1:3000/kakao/finish",
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${hostUrl}?${params}`;
+  const kakaoTokenReq = await fetch(finalUrl, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  const json = await kakaoTokenReq.json();
+  console.log(json);
+};
+
 const login = async (req, res) => {
   const { loginId, password } = req.body;
   if (!loginId || !password) {
@@ -39,4 +73,6 @@ module.exports = {
   signUp,
   login,
   profile,
+  startKakao,
+  finishKakao,
 };

@@ -7,6 +7,8 @@ const router = express.Router();
 router.post("/signup", userController.signUp);
 router.post("/login", userController.login); // login 해서 token을 클라이이언트에게 발급
 router.get("/profile", validation.validateToken, userController.profile);
+router.get("/kakao/start", userController.startKakao);
+router.get("/kakao/finish", userController.finishKakao);
 
 module.exports = {
   router,
