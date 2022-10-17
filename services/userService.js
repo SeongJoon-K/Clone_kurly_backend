@@ -1,7 +1,3 @@
-// 1. built-in node modules
-// 2. 3rd party module >> npm install 로 받은 것들
-// 3. Project 내에 module(내가 만든 것들)
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
