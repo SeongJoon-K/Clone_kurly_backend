@@ -9,6 +9,8 @@ router.post("/login", userController.login); // login 해서 token을 클라이�
 // router.get("/kakao", passport.authenticate("kakao"));
 // router.get("/kakao/callback", userController.kakaoCallback);
 router.get("/profile", validation.validateToken, userController.profile);
+router.get("/kakao/start", userController.startKakao);
+router.get("/kakao/finish", userController.finishKakao);
 
 module.exports = {
   router,
