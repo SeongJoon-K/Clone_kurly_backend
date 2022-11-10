@@ -16,7 +16,6 @@ const signUp = async (loginId, password, name) => {
   return createUser;
 };
 
-// 로그인 POST API JWT 인증
 const login = async (loginId, password) => {
   const user = await userDao.login(loginId);
   if (bcrypt.compare(password, user[0].password)) {
@@ -29,7 +28,6 @@ const login = async (loginId, password) => {
   }
 };
 
-// 프론트에서 JWT 토큰 입력시 해당유저의 name 출력
 const profile = async (userId) => {
   const userName = await userDao.profile(userId);
   if (!userName) {

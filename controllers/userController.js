@@ -58,7 +58,6 @@ const login = async (req, res) => {
   if (!loginId || !password) {
     return res.status(400).json({ message: "ID or PW IS UNDEFINED" });
   }
-  // 로그인 요청에서 받은 password를 hashPw 로 바꿔서 service로 보냄
   const accessToken = await userService.login(loginId, password);
   if (!accessToken) {
     return res.status(400).json({ message: "JWT IS UNDEFINED" });

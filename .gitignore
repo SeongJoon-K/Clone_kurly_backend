@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode
 
+
 ### macOS ###
 # General
 .DS_Store
@@ -62,4 +63,5 @@ Temporary Items
 # env file 
 .env
 *node_modules/*
+schema.sql
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode

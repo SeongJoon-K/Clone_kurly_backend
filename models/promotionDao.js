@@ -5,4 +5,6 @@ const promotions = async (id) => {
   return promotion;
 };
 
-module.exports = { promotions };
+module.exports = {
+  promotions,
+};
