@@ -1,4 +1,3 @@
-// Service단 연결
 const promotionService = require("../services/promotionService");
 
 const promotions = async (req, res) => {

@@ -34,7 +34,6 @@ function productOrder(order) {
   }
   return orderByStr;
 }
-//
 
 function productLimit(limit, page) {
   const pageStr = ` LIMIT ${limit} OFFSET ${(page - 1) * limit}`;
@@ -42,9 +41,7 @@ function productLimit(limit, page) {
     return pageStr;
   }
 }
-// page2 일떄,
 
-// LIMIT 6 OFFSET
 const createProduct = async (
   categoryId,
   title,
@@ -99,7 +96,7 @@ const getProduct = async (id) => {
     `SELECT * FROM products WHERE id=?;`,
     id
   );
-  return product[0]; // RowDataPocket이 []로 감싸져 있어서 [0] 추가하였음
+  return product[0];
 };
 
 module.exports = {
