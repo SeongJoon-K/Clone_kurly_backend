@@ -1,4 +1,3 @@
-const { SimpleConsoleLogger } = require("typeorm");
 const { myDataSource } = require("../dbconfig.js");
 
 function productCondition(categoryId, minPrice, maxPrice) {
