@@ -1,34 +1,7 @@
 const { myDataSource } = require("../dbconfig.js");
 
-function productCondition(categoryId, minPrice, maxPrice) {
-  let conditionArr = [];
-  const categoryIdString = ` categoryId = ${categoryId}`;
-  const minPriceString = ` price >= ${minPrice}`;
-  const maxPriceString = ` price <= ${maxPrice}`;
-  if (categoryId) {
-    conditionArr.push(categoryIdString);
-  }
-  if (minPrice) {
-    conditionArr.push(minPriceString);
-  }
-  if (maxPrice) {
-    conditionArr.push(maxPriceString);
-  }
-  const arrRange = conditionArr.length * 2;
-  if (conditionArr.length === 1) {
-    conditionArr.splice(0, 0, ` WHERE`);
-  } else if (conditionArr.length >= 2) {
-    conditionArr[0] = ` WHERE`;
-    for (let i = 2; i < arrRange; i += 2) {
-      conditionArr.splice(i, 0, ` AND`);
-    }
-  }
-  const whereStr = conditionArr.join("");
-  return whereStr;
-}
-
 function productOrder(order) {
-  let orderByStr = ` ORDER BY price`;
+  const orderByStr = ``;
   if (order) {
     orderByStr = ` ORDER BY price ${order}`;
   }
@@ -36,10 +9,10 @@ function productOrder(order) {
 }
 
 function productLimit(limit, page) {
+  if (!limit && !page) return "";
+
   const pageStr = ` LIMIT ${limit} OFFSET ${(page - 1) * limit}`;
-  if (page) {
-    return pageStr;
-  }
+  return pageStr;
 }
 
 const createProduct = async (
@@ -50,9 +23,8 @@ const createProduct = async (
   price,
   discount
 ) => {
-  try {
-    return await myDataSource.query(
-      `INSERT INTO products(
+  return await myDataSource.query(
+    `INSERT INTO products(
                 categoryId,
                 title,
                 thumbnail,
@@ -61,14 +33,26 @@ const createProduct = async (
                 discount
             ) VALUES (?, ?, ?, ?, ?, ?);
             `,
-      [categoryId, title, thumbnail, description, price, discount]
-    );
-  } catch (err) {
-    const error = new Error("허용되지 않는 데이터 입력");
-    error.statusCode = 500;
-    throw error;
-  }
+    [categoryId, title, thumbnail, description, price, discount]
+  );
 };
+
+function productCondition(categoryId, minPrice, maxPrice) {
+  if (!categoryId && !minPrice && !maxPrice) return "";
+
+  const conditionArr = [];
+  if (categoryId) {
+    conditionArr.push(` categoryId = ${categoryId}`);
+  }
+  if (minPrice) {
+    conditionArr.push(` price >= ${minPrice}`);
+  }
+  if (maxPrice) {
+    conditionArr.push(` price <= ${maxPrice}`);
+  }
+
+  return "WHERE" + conditionArr.join(" AND");
+}
 
 const getProductList = async (
   categoryId,

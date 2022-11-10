@@ -30,9 +30,12 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "node-fecth": "^0.0.1-security",
+    "node-fetch": "^3.2.10",
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "typeorm": "^0.3.9"
   }

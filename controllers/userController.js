@@ -17,6 +17,42 @@ const signUp = async (req, res) => {
   }
 };
 
+const startKakao = (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    client_id: "4e4e9b6459b97ee7e4666f357bbfb85c",
+    redirect_uri: "http://127.0.0.1:3000/kakao/finish",
+    response_type: "code",
+  };
+  const params = new URLSearchParams(config).toString();
+
+  const finalUrl = `${baseUrl}?${params}`;
+  console.log(finalUrl);
+  return res.redirect(finalUrl);
+};
+
+const finishKakao = async (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    client_id: "4e4e9b6459b97ee7e4666f357bbfb85c",
+    client_secret: "rbxHtMaLFfb0NJS5KCP78O6IEBDQrVG7",
+    grant_type: "authorization_code",
+    redirect_uri: "http://127.0.0.1:3000/kakao/finish",
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const kakaoTokenRequest = await fetch(finalUrl, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json", // 이 부분을 명시하지않으면 text로 응답을 받게됨
+    },
+  });
+  const json = await kakaoTokenRequest.json();
+  console.log(json);
+  res.send(JSON.stringify(json)); // 프론트엔드에서 확인하려고
+};
+
 const login = async (req, res) => {
   const { loginId, password } = req.body;
   if (!loginId || !password) {
@@ -38,4 +74,6 @@ module.exports = {
   signUp,
   login,
   profile,
+  startKakao,
+  finishKakao,
 };
