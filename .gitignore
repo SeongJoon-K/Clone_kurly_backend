@@ -4,6 +4,7 @@
 
 ### macOS ###
 # General
+.prettierrc
 .DS_Store
 .AppleDouble
 .LSOverride
