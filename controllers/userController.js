@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -18,10 +19,10 @@ const signUp = async (req, res) => {
 };
 
 const startKakao = (req, res) => {
-  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const baseUrl = process.env.KAKAO_BASE_URL;
   const config = {
-    client_id: "4e4e9b6459b97ee7e4666f357bbfb85c",
-    redirect_uri: "http://127.0.0.1:3000/kakao/finish",
+    client_id: process.env.KAKAO_CLIENT_ID,
+    redirect_uri: process.env.KAKAO_REDIRECT_URI,
     response_type: "code",
   };
   const params = new URLSearchParams(config).toString();
