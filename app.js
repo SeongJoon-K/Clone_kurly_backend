@@ -1,16 +1,16 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const http = require("http");
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+const http = require('http');
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 
-const routes = require("./routes");
-const { validateToken } = require("./middlewares/auth");
+const routes = require('./APIs/routes');
+const { validateToken } = require('./APIs/middlewares/auth');
 const app = express();
 
 app.use(cors());
-app.use(morgan("combined"));
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(routes.router);
 

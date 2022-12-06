@@ -1,4 +1,4 @@
-const { myDataSource } = require("../dbconfig.js");
+const { kurlyDataSource } = require('./dbconfig');
 
 function productOrder(order) {
   const orderByStr = ``;
@@ -9,7 +9,7 @@ function productOrder(order) {
 }
 
 function productLimit(limit, page) {
-  if (!limit && !page) return "";
+  if (!limit && !page) return '';
 
   const pageStr = ` LIMIT ${limit} OFFSET ${(page - 1) * limit}`;
   return pageStr;
@@ -23,7 +23,7 @@ const createProduct = async (
   price,
   discount
 ) => {
-  return await myDataSource.query(
+  return await kurlyDataSource.query(
     `INSERT INTO products(
                 categoryId,
                 title,
@@ -38,7 +38,7 @@ const createProduct = async (
 };
 
 function productCondition(categoryId, minPrice, maxPrice) {
-  if (!categoryId && !minPrice && !maxPrice) return "";
+  if (!categoryId && !minPrice && !maxPrice) return '';
 
   const conditionArr = [];
   if (categoryId) {
@@ -51,7 +51,7 @@ function productCondition(categoryId, minPrice, maxPrice) {
     conditionArr.push(` price <= ${maxPrice}`);
   }
 
-  return "WHERE" + conditionArr.join(" AND");
+  return 'WHERE' + conditionArr.join(' AND');
 }
 
 const getProductList = async (
@@ -68,15 +68,15 @@ const getProductList = async (
     productCondition(categoryId, minPrice, maxPrice) +
     productOrder(order) +
     productLimit(limit, page) +
-    ";";
+    ';';
   console.log(fullQuery);
-  const product = await myDataSource.query(fullQuery);
+  const product = await kurlyDataSource.query(fullQuery);
   return product;
 };
 
 const getProduct = async (id) => {
   console.log(id);
-  const product = await myDataSource.query(
+  const product = await kurlyDataSource.query(
     `SELECT * FROM products WHERE id=?;`,
     id
   );

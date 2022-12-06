@@ -1,7 +1,7 @@
-const { myDataSource } = require("../dbconfig.js");
+const { kurlyDataSource } = require('./dbconfig');
 
 const createBasket = async (user_id, product_id, amount) => {
-  return await myDataSource.query(
+  return await kurlyDataSource.query(
     `INSERT INTO baskets(
             user_id, 
             product_id, 
@@ -13,7 +13,7 @@ const createBasket = async (user_id, product_id, amount) => {
 };
 
 const getbasket = async (user_id) => {
-  const basket = await myDataSource.query(
+  const basket = await kurlyDataSource.query(
     `SELECT product_id, amount FROM baskets WHERE user_id=?`,
     user_id
   );
@@ -22,7 +22,7 @@ const getbasket = async (user_id) => {
 
 const updatebasket = async (user_id, amount) => {
   console.log(user_id, amount);
-  const basket = await myDataSource.query(
+  const basket = await kurlyDataSource.query(
     `UPDATE baskets SET amount=? WHERE id=?`,
     [amount, user_id]
   );
@@ -30,7 +30,9 @@ const updatebasket = async (user_id, amount) => {
 };
 
 const deletebasket = async (id) => {
-  const basket = await myDataSource.query(`DELETE FROM baskets WHERE id=${id}`);
+  const basket = await kurlyDataSource.query(
+    `DELETE FROM baskets WHERE id=${id}`
+  );
   return basket;
 };
 
