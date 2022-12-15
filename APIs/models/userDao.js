@@ -3,7 +3,7 @@ const { kurlyDataSource } = require('./dbconfig');
 const createUser = async (loginId, hashedPassword, name) => {
   return await kurlyDataSource.query(
     `INSERT INTO users(
-      loginId,
+      login_id,
       password,
       name
 	) VALUES (?, ?, ?);

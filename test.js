@@ -1,6 +1,6 @@
 // 기존 Query Builder code
 function productCondition(categoryId, minPrice, maxPrice) {
-  let conditionStr = [" WHERE"];
+  let conditionStr = [' WHERE'];
   const categoryIdString = ` categoryId = ${categoryId}`;
   const minPriceString = ` price >= ${minPrice}`;
   const maxPriceString = ` price <= ${maxPrice}`;
@@ -22,6 +22,6 @@ function productCondition(categoryId, minPrice, maxPrice) {
     conditionStr.push(` AND`);
     conditionStr.push(maxPriceString);
   }
-  const whereStr = conditionStr.join("");
+  const whereStr = conditionStr.join('');
   return whereStr;
 }

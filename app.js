@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const routes = require('./APIs/routes');
 const { validateToken } = require('./APIs/middlewares/auth');
+const { globalErrorHandler } = require('./APIs/middlewares/error');
 const app = express();
 
 app.use(cors());
