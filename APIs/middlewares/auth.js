@@ -14,7 +14,3 @@ const validateToken = async (req, res, next) => {
 module.exports = {
   validateToken,
 };
-
-/*
-return next()하면 다음이 아니라 끝나고 안갈 수도 있어서
-그냥 next()를 쓰는게 맞다*/
