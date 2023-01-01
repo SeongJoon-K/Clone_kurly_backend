@@ -1,11 +1,11 @@
-const { myDataSource } = require("../dbconfig.js");
+const { kurlyDataSource } = require('./dbconfig');
 
 const getcategory = async (id) => {
-  const category = await myDataSource.query(`SELECT * FROM categories;`);
+  const category = await kurlyDataSource.query(`SELECT * FROM categories;`);
   return category;
 };
 const detailcategory = async (id) => {
-  const category = await myDataSource.query(
+  const category = await kurlyDataSource.query(
     `SELECT name FROM categories WHERE id=${id}`
   );
   return category;

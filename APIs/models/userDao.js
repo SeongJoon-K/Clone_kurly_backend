@@ -1,32 +1,32 @@
-const { myDataSource } = require("../dbconfig");
+const { kurlyDataSource } = require('./dbconfig');
 
 const createUser = async (loginId, hashedPassword, name) => {
-  return await myDataSource.query(
+  return await kurlyDataSource.query(
     `INSERT INTO users(
-      loginId,
+      login_id,
       password,
       name
 	) VALUES (?, ?, ?);
 	`,
-    [loginId, hashedPassword, name]
+    [loginId, hashedPassword, name],
   );
 };
 
-const login = async (loginId) => {
-  return await myDataSource.query(
+const login = async loginId => {
+  return await kurlyDataSource.query(
     `SELECT * FROM users
 		WHERE loginId=?`,
-    [loginId]
+    [loginId],
   );
 };
 
-const profile = async (userId) => {
-  return await myDataSource.query(
+const profile = async userId => {
+  return await kurlyDataSource.query(
     `SELECT 
       name 
     FROM users
     WHERE id=?`,
-    [userId]
+    [userId],
   );
 };
 

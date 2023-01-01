@@ -1,10 +1,10 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const userService = require('../services/userService');
+const { catchAsync } = require('../middlewares/error');
 
-const signUp = async (req, res) => {
+const signUp = catchAsync(async (req, res) => {
   try {
     const { loginId, password, name } = req.body;
     if (!loginId || !password || !name) {
@@ -13,10 +13,9 @@ const signUp = async (req, res) => {
     const signupPost = await userService.signUp(loginId, password, name);
     res.status(201).json({ message: 'Created Successful ' });
   } catch (err) {
-    console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
   }
-};
+});
 
 const startKakao = (req, res) => {
   const baseUrl = process.env.KAKAO_BASE_URL;

@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
 const userDao = require("../models/userDao");
+
 const COST_FACTOR = 10;
 
 const signUp = async (loginId, password, name) => {
@@ -11,13 +13,14 @@ const signUp = async (loginId, password, name) => {
     throw err;
   }
 
-  const hashedPassword = await bcrypt.hash(password, COST_FACTOR); // Bcrypt 암호화
+  const hashedPassword = await bcrypt.hash(password, COST_FACTOR);
   const createUser = await userDao.createUser(loginId, hashedPassword, name);
   return createUser;
 };
 
 const login = async (loginId, password) => {
   const user = await userDao.login(loginId);
+
   if (bcrypt.compare(password, user[0].password)) {
     const payload = user[0].id;
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY);
