@@ -7,6 +7,7 @@ const { catchAsync } = require('../middlewares/error');
 const signUp = catchAsync(async (req, res) => {
   try {
     const { loginId, password, name } = req.body;
+
     if (!loginId || !password || !name) {
       return res.status(409).json({ message: 'KEY_ERROR' });
     }
@@ -45,12 +46,12 @@ const finishKakao = async (req, res) => {
   const kakaoTokenRequest = await fetch(finalUrl, {
     method: 'POST',
     headers: {
-      'Content-type': 'application/json', // 이 부분을 명시하지않으면 text로 응답을 받게됨
+      'Content-type': 'application/json',
     },
   });
   const json = await kakaoTokenRequest.json();
-  console.log(json);
-  res.send(JSON.stringify(json)); // 프론트엔드에서 확인하려고
+  
+  res.send(JSON.stringify(json));
 };
 
 const login = async (req, res) => {
