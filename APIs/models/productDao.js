@@ -1,4 +1,4 @@
-const { kurlyDataSource } = require('./dbconfig');
+const { kurlyDataSource } = require('./data-source');
 
 function productOrder(order) {
   const orderByStr = ``;
@@ -21,7 +21,7 @@ const createProduct = async (
   thumbnail,
   description,
   price,
-  discount
+  discount,
 ) => {
   return await kurlyDataSource.query(
     `INSERT INTO products(
@@ -33,7 +33,7 @@ const createProduct = async (
                 discount
             ) VALUES (?, ?, ?, ?, ?, ?);
             `,
-    [categoryId, title, thumbnail, description, price, discount]
+    [categoryId, title, thumbnail, description, price, discount],
   );
 };
 
@@ -60,7 +60,7 @@ const getProductList = async (
   maxPrice,
   order,
   limit,
-  page
+  page,
 ) => {
   let defaultQuery = `SELECT id, categoryId, title, thumbnail, description, price, discount FROM products`;
   let fullQuery =
@@ -74,11 +74,11 @@ const getProductList = async (
   return product;
 };
 
-const getProduct = async (id) => {
+const getProduct = async id => {
   console.log(id);
   const product = await kurlyDataSource.query(
     `SELECT * FROM products WHERE id=?;`,
-    id
+    id,
   );
   return product[0];
 };

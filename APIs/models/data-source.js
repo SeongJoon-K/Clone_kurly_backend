@@ -9,16 +9,6 @@ const kurlyDataSource = new DataSource({
   database: process.env.TYPEORM_DATABASE,
 });
 
-kurlyDataSource
-  .initialize()
-  .then(() => {
-    console.log('DB INTITIALIZED 완료');
-  })
-  .catch((err) => {
-    console.error('Error occurred during Data Source initialization', err);
-    kurlyDataSource.destroy();
-  });
-
 module.exports = {
   kurlyDataSource,
 };

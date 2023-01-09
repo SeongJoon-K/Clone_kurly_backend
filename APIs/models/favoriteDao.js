@@ -1,9 +1,9 @@
-const { kurlyDataSource } = require('./dbconfig');
+const { kurlyDataSource } = require('./data-source');
 
 const getfavorite = async (product_id, user_id, discount, price) => {
   const favorite = await kurlyDataSource.query(
     `SELECT product_id, amount FROM baskets WHERE user_id=?`,
-    [user_id]
+    [user_id],
   );
   return favorite;
 };

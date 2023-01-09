@@ -15,6 +15,4 @@ router.use("/baskets", baskerRouter.router);
 router.use("/promotions", promotionRouter.router);
 router.use("/favorites", favoriteRouter.router);
 
-module.exports = {
-  router,
-};
+module.exports = router

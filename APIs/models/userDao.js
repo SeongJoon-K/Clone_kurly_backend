@@ -1,4 +1,4 @@
-const { kurlyDataSource } = require('./dbconfig');
+const { kurlyDataSource } = require('./data-source');
 
 const createUser = async (loginId, hashedPassword, name) => {
   return await kurlyDataSource.query(

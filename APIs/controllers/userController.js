@@ -8,9 +8,10 @@ const signUp = catchAsync(async (req, res) => {
   try {
     const { loginId, password, name } = req.body;
     if (!loginId || !password || !name) {
-      return res.status(400).json({ message: 'KEY_ERROR' });
+      return res.status(409).json({ message: 'KEY_ERROR' });
     }
     const signupPost = await userService.signUp(loginId, password, name);
+
     res.status(201).json({ message: 'Created Successful ' });
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message });
