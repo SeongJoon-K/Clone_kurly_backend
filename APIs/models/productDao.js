@@ -10,7 +10,6 @@ function productOrder(order) {
 
 function productLimit(limit, page) {
   if (!limit && !page) return '';
-
   const pageStr = ` LIMIT ${limit} OFFSET ${(page - 1) * limit}`;
   return pageStr;
 }

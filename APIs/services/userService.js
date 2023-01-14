@@ -12,7 +12,6 @@ const signUp = async (loginId, password, name) => {
     err.statusCode = 400;
     throw err;
   }
-
   const hashedPassword = await bcrypt.hash(password, COST_FACTOR);
   const createUser = await userDao.createUser(loginId, hashedPassword, name);
   return createUser;
@@ -20,21 +19,21 @@ const signUp = async (loginId, password, name) => {
 
 const login = async (loginId, password) => {
   const user = await userDao.login(loginId);
-
-  if (bcrypt.compare(password, user[0].password)) {
+  const compareResult = bcrypt.compare(password, user[0].password)
+  if (compareResult) {
     const payload = user[0].id;
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY);
     return accessToken;
   }
   if (!loginId || !password) {
-    return res.status(400).json({ message: "ID or PW IS UNDEFINED" });
+    return res.status(400).json({ message: "ID_OR_PW_UNDEFINED" });
   }
 };
 
 const profile = async (userId) => {
   const userName = await userDao.profile(userId);
   if (!userName) {
-    return res.status(400).json({ message: "PK IS UNDEFINED" });
+    return res.status(400).json({ message: "USERNAME_IS_UNDEFINED" });
   }
   return userName;
 };

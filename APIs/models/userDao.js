@@ -6,26 +6,31 @@ const createUser = async (loginId, hashedPassword, name) => {
       login_id,
       password,
       name
-	) VALUES (?, ?, ?);
-	`,
+    ) VALUES (?, ?, ?);
+    `,
     [loginId, hashedPassword, name],
   );
 };
 
 const login = async loginId => {
   return await kurlyDataSource.query(
-    `SELECT * FROM users
-		WHERE loginId=?`,
+    `
+    SELECT * 
+    FROM users
+		WHERE loginId=?
+    `,
     [loginId],
   );
 };
 
 const profile = async userId => {
   return await kurlyDataSource.query(
-    `SELECT 
+    `
+    SELECT 
       name 
     FROM users
-    WHERE id=?`,
+    WHERE id=?
+    `,
     [userId],
   );
 };
