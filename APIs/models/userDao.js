@@ -17,7 +17,7 @@ const login = async loginId => {
     `
     SELECT * 
     FROM users
-		WHERE loginId=?
+		WHERE login_id=?
     `,
     [loginId],
   );
