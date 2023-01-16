@@ -1,4 +1,4 @@
-const basketDao = require("../models/basketDao");
+const basketDao = require("../models/cartDao");
 const jwt = require("jsonwebtoken");
 
 const baskets = async (token, product_id, amount) => {

@@ -1,5 +1,5 @@
 -- migrate:up
-CREATE TABLE baskets (
+CREATE TABLE carts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
@@ -9,4 +9,4 @@ CREATE TABLE baskets (
 );
 
 -- migrate:down
-DROP TABLE baskets;
+DROP TABLE carts;
