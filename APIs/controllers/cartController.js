@@ -1,5 +1,4 @@
-const basketService = require("../services/basketService");
-const jwt = require("jsonwebtoken");
+const basketService = require("../services/cartService");
 
 const baskets = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
@@ -19,7 +18,7 @@ const getbasket = async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
-      return res.status(400).json({ message: "USER_ID IS NULL" });
+      return res.status(400).json({ message: "USER_ID_IS_NULL" });
     }
     const basket = await basketService.getbasket(token);
     res.status(200).json(basket);
